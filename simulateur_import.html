@@ -1,0 +1,2280 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ImportCalc — Chine → Madagascar</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:     #f2f2f7;
+  --white:  #ffffff;
+  --border: rgba(0,0,0,0.10);
+  --border2:rgba(0,0,0,0.18);
+  --text:   #1c1c1e;
+  --text2:  #48484a;
+  --text3:  #8e8e93;
+  --blue:   #007aff;
+  --green:  #34c759;
+  --green2: #248a3d;
+  --orange: #ff9500;
+  --red:    #ff3b30;
+  --purple: #5856d6;
+}
+
+body.dark {
+  --bg:     #1c1c1e;
+  --white:  #2c2c2e;
+  --border: rgba(255,255,255,0.10);
+  --border2:rgba(255,255,255,0.18);
+  --text:   #f5f5f7;
+  --text2:  #aeaeb2;
+  --text3:  #636366;
+  --blue:   #0a84ff;
+  --green:  #30d158;
+  --green2: #30d158;
+  --orange: #ff9f0a;
+  --red:    #ff453a;
+  --purple: #bf5af2;
+}
+
+.dark nav { background: rgba(28,28,30,0.95); }
+.dark .nav-inner { background: rgba(255,255,255,0.08); }
+.dark .nav-btn.active { background: #3a3a3c; }
+.dark .hero {
+  background: #2c2c2e;
+}
+.dark .docs-hero {
+  background: #2c2c2e;
+}
+.dark input[type=number],
+.dark input[type=text],
+.dark input[type=date],
+.dark select {
+  background: #3a3a3c !important;
+  border-color: rgba(255,255,255,0.15) !important;
+  color: var(--text) !important;
+}
+.dark input[type=range] {
+  background: #3a3a3c;
+}
+.dark .table-wrap,
+.dark .doc-table-wrap { background: #2c2c2e; }
+.dark thead tr { background: #3a3a3c; }
+.dark tbody tr:hover { background: rgba(10,132,255,0.07); }
+
+/* toggle button flottant */
+.theme-toggle {
+  position: fixed;
+  bottom: 28px;
+  right: 20px;
+  z-index: 999;
+  background: var(--white);
+  border: 1px solid var(--border2);
+  border-radius: 100px;
+  padding: 10px 18px;
+  font-size: 15px;
+  font-family: inherit;
+  color: var(--text2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  transition: transform 0.15s, box-shadow 0.15s;
+  white-space: nowrap;
+}
+.theme-toggle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+}
+.theme-toggle:active { transform: scale(0.96); }
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* NAV */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(242,242,247,0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 0.5px solid var(--border2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+}
+.dark nav { background: rgba(28,28,30,0.95); }
+
+.nav-inner {
+  display: flex;
+  gap: 3px;
+  background: var(--border);
+  border-radius: 12px;
+  padding: 3px;
+  width: 100%;
+  max-width: 420px;
+}
+.nav-btn {
+  flex: 1;
+  padding: 8px 6px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: inherit;
+  border: none;
+  background: transparent;
+  color: var(--text3);
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+  text-align: center;
+  line-height: 1.3;
+}
+.nav-btn:hover { color: var(--text); }
+.nav-btn.active {
+  background: var(--white);
+  color: var(--blue);
+  font-weight: 600;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+}
+
+/* PAGES */
+.page { display: none; }
+.page.active { display: block; }
+
+/* HERO */
+.hero {
+  text-align: center;
+  padding: 76px 24px 52px;
+  background: var(--white);
+  border-bottom: 0.5px solid var(--border);
+}
+.hero-tag {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 16px;
+}
+.hero h1 {
+  font-size: clamp(40px, 7vw, 72px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--text);
+  margin-bottom: 18px;
+}
+.hero h1 span { color: var(--blue); }
+.hero p {
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--text2);
+  max-width: 480px;
+  margin: 0 auto 34px;
+}
+.badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--bg);
+  border: 0.5px solid var(--border2);
+  border-radius: 100px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text2);
+}
+.badge .dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 6px var(--green);
+  animation: blink 2s ease infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+/* CONTAINER */
+.wrap {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 32px 20px 80px;
+}
+
+/* CARD */
+.card {
+  background: var(--white);
+  border-radius: 20px;
+  border: 0.5px solid var(--border);
+  padding: 32px;
+  margin-bottom: 16px;
+}
+.card-eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 24px;
+}
+.card-h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.card-sub {
+  font-size: 16px;
+  color: var(--text2);
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+/* INPUTS */
+.field { margin-bottom: 20px; }
+.field:last-child { margin-bottom: 0; }
+.field label {
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text2);
+  margin-bottom: 9px;
+}
+input[type=number] {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border2);
+  border-radius: 12px;
+  padding: 15px 18px;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text);
+  font-family: inherit;
+  transition: border-color 0.2s, background 0.2s;
+  -moz-appearance: textfield;
+}
+input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; }
+input[type=number]:focus {
+  outline: none;
+  border-color: var(--blue);
+  background: rgba(0,122,255,0.04);
+}
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+/* SLIDERS */
+.srow { margin-bottom: 30px; }
+.srow:last-child { margin-bottom: 0; }
+.srow-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 12px;
+}
+.slabel { font-size: 18px; font-weight: 500; color: var(--text); }
+.snum   { font-size: 32px; font-weight: 300; color: var(--blue); letter-spacing: -0.03em; min-width: 70px; text-align: right; }
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%; height: 4px;
+  background: #d1d1d6;
+  border-radius: 4px;
+  outline: none; cursor: pointer;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 2px solid var(--blue);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  transition: transform 0.15s;
+}
+input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.12); }
+input[type=range]::-moz-range-thumb {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--white); border: 2px solid var(--blue);
+}
+.shint { font-size: 14px; color: var(--text3); margin-top: 8px; }
+
+/* RESULT TILES */
+.tiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+.tile {
+  background: var(--bg);
+  border: 0.5px solid var(--border);
+  border-radius: 18px;
+  padding: 22px 20px;
+}
+.tile.t-blue  { background:rgba(0,122,255,0.07);  border-color:rgba(0,122,255,0.25); }
+.tile.t-green { background:rgba(52,199,89,0.07);  border-color:rgba(52,199,89,0.30); }
+.tile.t-red   { background:rgba(255,59,48,0.06);  border-color:rgba(255,59,48,0.20); }
+.tile-lbl {
+  font-size: 13px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.07em;
+  color: var(--text3); margin-bottom: 12px;
+}
+.tile-val {
+  font-size: 28px; font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text); line-height: 1.1;
+}
+.tile.t-blue  .tile-val { color: var(--blue); }
+.tile.t-green .tile-val { color: var(--green2); }
+.tile.t-red   .tile-val { color: var(--red); }
+.tile-sub { font-size: 14px; color: var(--text3); margin-top: 7px; }
+
+/* BREAKDOWN */
+.bk-label {
+  font-size: 16px; font-weight: 600;
+  color: var(--text); margin-bottom: 14px;
+}
+.bk-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 15px 0;
+  border-bottom: 0.5px solid var(--border);
+  font-size: 17px;
+}
+.bk-row:last-child { border-bottom: none; }
+.bk-left { display: flex; align-items: center; gap: 11px; color: var(--text2); }
+.bk-dot  { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.bk-badge {
+  font-size: 12px; font-weight: 600;
+  padding: 3px 10px; border-radius: 20px;
+}
+.bk-badge.tax    { background:rgba(255,149,0,0.15); color:#9a5c00; }
+.bk-badge.profit { background:rgba(52,199,89,0.15); color:var(--green2); }
+.bk-val { font-size: 17px; font-weight: 600; color: var(--text); }
+.bk-total {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding-top: 18px; margin-top: 6px;
+  border-top: 1.5px solid var(--text3);
+}
+.bk-total span:first-child { font-size: 18px; font-weight: 600; }
+.bk-total span:last-child  { font-size: 22px; font-weight: 700; color: var(--blue); }
+
+hr.sep { border: none; border-top: 0.5px solid var(--border); margin: 24px 0; }
+.note  { font-size: 14px; color: var(--text3); margin-top: 12px; line-height: 1.6; }
+
+/* MULTIPLES */
+.mult-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(118px,1fr));
+  gap: 10px;
+  margin: 16px 0 20px;
+}
+.mult-tile {
+  background: var(--bg); border: 0.5px solid var(--border);
+  border-radius: 14px; padding: 14px 10px; text-align: center;
+}
+.mult-tile.hl {
+  background: rgba(0,122,255,0.08);
+  border: 1.5px solid rgba(0,122,255,0.4);
+}
+.mult-x    { font-size: 13px; color: var(--text3); margin-bottom: 7px; }
+.mult-prix { font-size: 18px; font-weight: 700; color: var(--text); }
+.mult-tile.hl .mult-prix { color: var(--blue); }
+.mult-ben  { font-size: 13px; color: var(--green2); margin-top: 5px; }
+
+/* CTA */
+.cta-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.cta-btn {
+  flex: 1; min-width: 180px;
+  background: var(--bg);
+  border: 1px solid var(--border2);
+  border-radius: 14px;
+  padding: 17px 20px;
+  font-size: 16px; font-weight: 500; font-family: inherit;
+  color: var(--text); cursor: pointer; text-align: left;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: background 0.15s, transform 0.15s;
+}
+.cta-btn:hover { background: #e5e5ea; transform: translateY(-1px); }
+.cta-btn .arr { color: var(--blue); font-size: 18px; }
+
+/* FOOTER */
+footer {
+  text-align: center; padding: 30px 20px;
+  font-size: 14px; color: var(--text3);
+  border-top: 0.5px solid var(--border);
+}
+
+/* DOCS HERO */
+.docs-hero {
+  background: var(--white);
+  border-bottom: 0.5px solid var(--border);
+  padding: 60px 24px 44px;
+  text-align: center;
+}
+.docs-hero h1 {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 700; letter-spacing: -0.02em;
+  color: var(--text); margin-bottom: 14px;
+}
+.docs-hero p { font-size: 19px; color: var(--text2); max-width: 500px; margin: 0 auto; }
+
+/* TABLE */
+.table-wrap {
+  overflow-x: auto;
+  border-radius: 18px;
+  border: 0.5px solid var(--border);
+  background: var(--white);
+}
+table { width: 100%; border-collapse: collapse; font-size: 16px; }
+thead tr { background: var(--bg); }
+thead th {
+  padding: 15px 18px; text-align: left;
+  font-size: 13px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text3);
+  border-bottom: 1px solid var(--border2);
+}
+tbody tr { border-bottom: 0.5px solid var(--border); transition: background 0.12s; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: rgba(0,122,255,0.025); }
+tbody td {
+  padding: 17px 18px; vertical-align: top;
+  color: var(--text); font-size: 16px; line-height: 1.55;
+}
+tbody td:first-child { font-weight: 600; width: 30%; }
+tbody td:nth-child(2){ color: var(--text2); }
+
+.pill {
+  display: inline-block; font-size: 13px; font-weight: 600;
+  padding: 4px 13px; border-radius: 20px; white-space: nowrap;
+}
+.pill-req   { background:rgba(255,59,48,0.10);  color:#c0392b; }
+.pill-opt   { background:rgba(255,149,0,0.10);  color:#9a5c00; }
+.pill-local { background:rgba(52,199,89,0.10);  color:var(--green2); }
+.pill-cn    { background:rgba(88,86,214,0.10);  color:var(--purple); }
+
+.info-box {
+  background: rgba(0,122,255,0.06);
+  border: 0.5px solid rgba(0,122,255,0.2);
+  border-radius: 16px; padding: 22px 24px;
+}
+.info-box h3 { font-size: 17px; font-weight: 600; color: var(--blue); margin-bottom: 14px; }
+.info-box ul { list-style: none; }
+.info-box li {
+  font-size: 16px; color: var(--text2);
+  padding: 6px 0 6px 22px; position: relative;
+}
+.info-box li::before { content:'→'; position:absolute; left:0; color:var(--blue); }
+
+/* RESPONSIVE — mobile first */
+@media (max-width: 480px) {
+  /* Base */
+  body { font-size: 15px; }
+  .wrap { padding: 16px 14px 80px; }
+  .card { padding: 18px 16px; border-radius: 16px; margin-bottom: 12px; }
+
+  /* Hero */
+  .hero { padding: 40px 16px 32px; }
+  .hero h1 { font-size: 36px; letter-spacing: -0.02em; }
+  .hero p { font-size: 15px; margin-bottom: 20px; }
+  .badge { font-size: 13px; padding: 8px 14px; }
+  .docs-hero { padding: 36px 16px 28px; }
+  .docs-hero h1 { font-size: 28px; }
+  .docs-hero p { font-size: 15px; }
+
+  /* Nav */
+  .nav-btn { font-size: 12px; padding: 7px 4px; }
+
+  /* Cards text */
+  .card-eyebrow { font-size: 11px; margin-bottom: 16px; }
+  .card-h2 { font-size: 20px; }
+  .card-sub { font-size: 14px; }
+
+  /* Grids */
+  .grid2, .tiles { grid-template-columns: 1fr; gap: 10px; }
+
+  /* Inputs */
+  input[type=number], input[type=text], input[type=date], select {
+    font-size: 16px !important;
+    padding: 12px 14px !important;
+  }
+  .field label { font-size: 14px; }
+
+  /* Sliders */
+  .slabel { font-size: 15px; }
+  .snum { font-size: 24px; }
+  .shint { font-size: 12px; }
+  .srow { margin-bottom: 22px; }
+
+  /* Result tiles */
+  .tile { padding: 16px 14px; border-radius: 14px; }
+  .tile-lbl { font-size: 11px; margin-bottom: 8px; }
+  .tile-val { font-size: 20px; }
+  .tile-sub { font-size: 12px; }
+
+  /* Breakdown */
+  .bk-label { font-size: 14px; }
+  .bk-row { font-size: 14px; padding: 12px 0; }
+  .bk-badge { font-size: 11px; padding: 2px 7px; }
+  .bk-val { font-size: 14px; }
+  .bk-total span:first-child { font-size: 15px; }
+  .bk-total span:last-child { font-size: 17px; }
+
+  /* CTA buttons */
+  .cta-btn { font-size: 14px; padding: 14px 16px; min-width: 0; }
+  .cta-row { gap: 8px; }
+
+  /* Multiples grid */
+  .mult-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .mult-prix { font-size: 14px; }
+  .mult-ben { font-size: 11px; }
+
+  /* Tables */
+  table { font-size: 13px; }
+  thead th { padding: 10px 10px; font-size: 11px; }
+  tbody td { padding: 12px 10px; font-size: 13px; }
+
+  /* Unit results dynamic content */
+  .unit-revient-val { font-size: 22px !important; }
+  .unit-vente-val { font-size: 20px !important; }
+  .unit-benef-val { font-size: 20px !important; }
+
+  /* Footer */
+  footer { font-size: 12px; padding: 20px 16px; }
+
+  /* Theme toggle */
+  .theme-toggle { bottom: 16px; right: 14px; padding: 8px 14px; font-size: 13px; }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  body { font-size: 16px; }
+  .wrap { padding: 24px 18px 80px; }
+  .card { padding: 22px 20px; }
+  .hero h1 { font-size: 48px; }
+  .grid2 { grid-template-columns: 1fr 1fr; }
+  .tiles { grid-template-columns: 1fr 1fr; }
+  .snum { font-size: 28px; }
+  .tile-val { font-size: 22px; }
+  .mult-grid { grid-template-columns: repeat(3, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="showPage('calc')">Simulateur</button>
+    <button class="nav-btn" onclick="showPage('docs')">Documents</button>
+    <button class="nav-btn" onclick="showPage('clients')">Clients</button>
+    <button class="nav-btn" onclick="showPage('guide')">Guide</button>
+  </div>
+</nav>
+
+<!-- Bouton flottant dark/light -->
+<button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">
+  <span id="theme-icon">🌙</span> <span id="theme-label">Dark</span>
+</button>
+
+<!-- PAGE 1 SIMULATEUR -->
+<div id="page-calc" class="page active">
+
+  <div class="hero">
+    <div class="hero-tag">Outil de simulation</div>
+    <h1>Import<span>Calc</span></h1>
+    <p>Calcule ton coût de revient, tes frais douaniers et ton bénéfice net.</p>
+    <div class="badge">
+      <span class="dot"></span>
+      Chine (CNY) &nbsp;→&nbsp; Madagascar (Ar)
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <div class="card">
+      <div class="card-eyebrow">Capital de départ</div>
+      <div class="field">
+        <label>Fonds disponibles (Ariary)</label>
+        <input type="number" id="fond" value="100000" step="1000" min="0" />
+      </div>
+      <div class="field" style="margin-bottom:0">
+        <label>Taux de change : 1 ¥ CNY = ? Ariary</label>
+        <div style="position:relative;">
+          <input type="number" id="cny_ar" value="635" step="1" />
+          <div id="rate_status" style="position:absolute; right:14px; top:50%; transform:translateY(-50%); font-size:13px; font-weight:500; color:var(--text3);">…</div>
+        </div>
+        <div id="rate_info" style="margin-top:10px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+          <span id="rate_badge" style="font-size:12px; font-weight:600; padding:3px 10px; border-radius:20px; background:rgba(142,142,147,0.15); color:var(--text3);">Chargement…</span>
+          <span id="rate_detail" style="font-size:13px; color:var(--text3);"></span>
+          <button onclick="fetchRate()" style="font-size:12px; font-weight:600; padding:3px 10px; border-radius:20px; border:1px solid var(--border2); background:transparent; color:var(--blue); cursor:pointer; font-family:inherit;">↻ Actualiser</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-eyebrow">Frais d'acheminement</div>
+
+      <div class="srow">
+        <div class="srow-head">
+          <span class="slabel">Transport maritime</span>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span class="snum" id="v_transport">10%</span>
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer; font-size:13px; color:var(--text3);">
+              <input type="checkbox" id="inc_transport" checked onchange="calc();calcUnit()" style="width:18px;height:18px;cursor:pointer;accent-color:var(--blue);" />
+              Inclure
+            </label>
+          </div>
+        </div>
+        <input type="range" id="transport" min="5" max="40" value="10" step="1" />
+        <p class="shint">Maritime LCL Chine → Toamasina : 8–12%</p>
+      </div>
+
+      <div class="srow">
+        <div class="srow-head">
+          <span class="slabel">Droits de douane</span>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span class="snum" id="v_douane">20%</span>
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer; font-size:13px; color:var(--text3);">
+              <input type="checkbox" id="inc_douane" checked onchange="calc();calcUnit()" style="width:18px;height:18px;cursor:pointer;accent-color:var(--blue);" />
+              Inclure
+            </label>
+          </div>
+        </div>
+        <input type="range" id="douane" min="5" max="40" value="20" step="1" />
+        <p class="shint">Vêtements & sacs à Madagascar : 20–25% de la valeur CAF</p>
+      </div>
+
+      <div class="srow">
+        <div class="srow-head">
+          <span class="slabel">TVA Madagascar</span>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span class="snum" id="v_tva">20%</span>
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer; font-size:13px; color:var(--text3);">
+              <input type="checkbox" id="inc_tva" checked onchange="calc();calcUnit()" style="width:18px;height:18px;cursor:pointer;accent-color:var(--blue);" />
+              Inclure
+            </label>
+          </div>
+        </div>
+        <input type="range" id="tva" min="0" max="30" value="20" step="1" />
+        <p class="shint">TVA standard à Madagascar : 20%</p>
+      </div>
+
+      <div class="srow">
+        <div class="srow-head">
+          <span class="slabel">Divers & imprévus</span>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span class="snum" id="v_misc">5%</span>
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer; font-size:13px; color:var(--text3);">
+              <input type="checkbox" id="inc_misc" checked onchange="calc();calcUnit()" style="width:18px;height:18px;cursor:pointer;accent-color:var(--blue);" />
+              Inclure
+            </label>
+          </div>
+        </div>
+        <input type="range" id="misc" min="0" max="20" value="5" step="1" />
+        <p class="shint">Stockage, manutention, frais divers</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-eyebrow">Prix de vente & marge</div>
+      <div class="srow" style="margin-bottom:0">
+        <div class="srow-head">
+          <span class="slabel">Marge bénéficiaire cible</span>
+          <span class="snum" id="v_marge">50%</span>
+        </div>
+        <input type="range" id="marge" min="10" max="200" value="50" step="5" />
+        <p class="shint">Appliquée sur le coût de revient total</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-eyebrow">Résultats</div>
+      <div class="tiles">
+        <div class="tile t-blue">
+          <div class="tile-lbl">Budget en yuan</div>
+          <div class="tile-val" id="r_cny">—</div>
+          <div class="tile-sub">à dépenser en Chine</div>
+        </div>
+        <div class="tile t-red">
+          <div class="tile-lbl">Coût de revient</div>
+          <div class="tile-val" id="r_cout">—</div>
+          <div class="tile-sub">achat + tous les frais</div>
+        </div>
+        <div class="tile">
+          <div class="tile-lbl">Prix de vente cible</div>
+          <div class="tile-val" id="r_vente">—</div>
+          <div class="tile-sub">pour atteindre ta marge</div>
+        </div>
+        <div class="tile t-green">
+          <div class="tile-lbl">Bénéfice net estimé</div>
+          <div class="tile-val" id="r_benef">—</div>
+          <div class="tile-sub">si tout est vendu</div>
+        </div>
+      </div>
+      <hr class="sep" />
+      <div class="bk-label">Détail des coûts</div>
+      <div id="breakdown"></div>
+      <div class="bk-total">
+        <span>Prix de vente cible</span>
+        <span id="r_vente2">—</span>
+      </div>
+      <hr class="sep" />
+      <div class="cta-row">
+        <button class="cta-btn" onclick="sendPrompt('Donne-moi des conseils pour réduire les coûts douaniers pour importer des vêtements et sacs de Chine à Madagascar')">
+          Réduire les frais <span class="arr">↗</span>
+        </button>
+        <button class="cta-btn" onclick="showPage('docs')">
+          Documents requis <span class="arr">→</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-eyebrow">Prix de vente par article</div>
+      <div class="card-h2">Combien vendre cet article ?</div>
+      <div class="card-sub">Entre le prix d'achat pour voir le prix de vente suggéré selon ta marge.</div>
+      <div class="grid2">
+        <div class="field">
+          <label>Prix d'achat (Ar)</label>
+          <input type="number" id="unit_achat" value="5000" step="500" min="0" oninput="calcUnit(); updateUnitCNY()" />
+          <div id="unit_achat_cny" style="margin-top:7px; font-size:13px; color:var(--text3);">
+            ≈ <span id="unit_achat_cny_val" style="font-weight:700; color:var(--purple);">7.87 ¥</span> CNY
+          </div>
+        </div>
+        <div class="field" style="margin-bottom:0">
+          <label>Quantité achetée</label>
+          <input type="number" id="unit_qty" value="10" step="1" min="1" />
+        </div>
+      </div>
+      <div id="unit_results"></div>
+    </div>
+
+  </div>
+  <footer>ImportCalc · Simulation indicative — consulte un transitaire pour les taux officiels</footer>
+</div>
+
+
+<!-- PAGE 2 DOCUMENTS -->
+<div id="page-docs" class="page">
+
+  <div class="docs-hero">
+    <h1>Documents requis</h1>
+    <p>Tous les papiers nécessaires pour importer depuis la Chine vers Madagascar.</p>
+  </div>
+
+  <div class="wrap">
+
+    <div class="card">
+      <div class="card-eyebrow">Tableau récapitulatif</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Document</th>
+              <th>Description</th>
+              <th>Délivré par</th>
+              <th>Statut</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Facture commerciale</td>
+              <td>Prix, quantité, description détaillée des marchandises, noms vendeur & acheteur</td>
+              <td>Fournisseur chinois</td>
+              <td><span class="pill pill-req">Obligatoire</span></td>
+            </tr>
+            <tr>
+              <td>Liste de colisage</td>
+              <td>Détail par colis : poids, dimensions, contenu exact, nombre de pièces</td>
+              <td>Fournisseur chinois</td>
+              <td><span class="pill pill-req">Obligatoire</span></td>
+            </tr>
+            <tr>
+              <td>Connaissement (B/L)</td>
+              <td>Titre de transport maritime — preuve que la marchandise est à bord du bateau</td>
+              <td>Compagnie maritime</td>
+              <td><span class="pill pill-req">Obligatoire</span></td>
+            </tr>
+            <tr>
+              <td>Déclaration en douane</td>
+              <td>Document officiel déposé à la douane malgache à l'arrivée au port de Toamasina</td>
+              <td>Transitaire / Douane Mada</td>
+              <td><span class="pill pill-req">Obligatoire</span></td>
+            </tr>
+            <tr>
+              <td>NIF / STAT Madagascar</td>
+              <td>Numéro d'identification fiscale et statistique — requis pour dédouaner en tant qu'importateur</td>
+              <td>Administration malgache</td>
+              <td><span class="pill pill-local">Local</span></td>
+            </tr>
+            <tr>
+              <td>Carte d'importateur</td>
+              <td>Carte professionnelle délivrée par le Ministère du Commerce de Madagascar</td>
+              <td>Ministère du Commerce</td>
+              <td><span class="pill pill-local">Local</span></td>
+            </tr>
+            <tr>
+              <td>Certificat d'origine</td>
+              <td>Prouve que la marchandise vient de Chine — peut permettre de bénéficier de taux réduits</td>
+              <td>Chambre de Commerce Chine</td>
+              <td><span class="pill pill-cn">Chine</span></td>
+            </tr>
+            <tr>
+              <td>Certificat de conformité</td>
+              <td>Certifie que les produits respectent les normes de qualité et de sécurité</td>
+              <td>Organisme certif. / Fournisseur</td>
+              <td><span class="pill pill-opt">Recommandé</span></td>
+            </tr>
+            <tr>
+              <td>Assurance transport</td>
+              <td>Couvre la marchandise pendant le trajet maritime contre perte ou dommage</td>
+              <td>Compagnie d'assurance</td>
+              <td><span class="pill pill-opt">Recommandé</span></td>
+            </tr>
+            <tr>
+              <td>Déclaration de valeur</td>
+              <td>Justifie la valeur CAF déclarée si la douane demande une vérification</td>
+              <td>Importateur (toi)</td>
+              <td><span class="pill pill-opt">Recommandé</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; align-items:center;">
+        <span style="font-size:14px; color:var(--text3); margin-right:4px;">Légende :</span>
+        <span class="pill pill-req">Obligatoire</span>
+        <span class="pill pill-local">Local (Mada)</span>
+        <span class="pill pill-cn">Chine</span>
+        <span class="pill pill-opt">Recommandé</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-eyebrow">Conseil pratique</div>
+      <div class="card-h2">Passe par un transitaire</div>
+      <div class="card-sub">Un transitaire gère toute la paperasse et le transport à ta place. Pour un premier import, c'est fortement recommandé — ça évite les mauvaises surprises à la douane.</div>
+
+      <div class="info-box">
+        <h3>Ce que le transitaire fait pour toi</h3>
+        <ul>
+          <li>Réserve le transport maritime depuis la Chine</li>
+          <li>Prépare et dépose la déclaration en douane</li>
+          <li>Paie les droits de douane et la TVA en ton nom</li>
+          <li>Récupère ta marchandise au port de Toamasina</li>
+          <li>Gère les problèmes éventuels avec la douane</li>
+        </ul>
+      </div>
+
+      <div class="cta-row" style="margin-top:20px;">
+        <button class="cta-btn" onclick="showPage('calc')">
+          ← Retour au simulateur <span class="arr"></span>
+        </button>
+        <button class="cta-btn" onclick="sendPrompt('Quels transitaires recommandes-tu pour importer depuis la Chine vers Madagascar ?')">
+          Trouver un transitaire <span class="arr">↗</span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+  <footer>ImportCalc · Simulation indicative — consulte un transitaire pour les taux officiels</footer>
+</div>
+
+
+<!-- PAGE 3 CLIENTS -->
+<div id="page-clients" class="page">
+
+  <div class="docs-hero">
+    <h1>Suivi clients</h1>
+    <p>Enregistre les fonds et commandes de tes clients. Données sauvegardées automatiquement.</p>
+    <div style="margin-top:14px;">
+      <span id="sync_status" style="font-size:14px; font-weight:600; color:var(--text3);">⏳ Connexion…</span>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <div class="card">
+      <div class="card-eyebrow">Ajouter / modifier un client</div>
+      <div class="grid2">
+        <div class="field">
+          <label>Nom du client</label>
+          <input type="text" id="c_nom" placeholder="ex: Toky" style="font-size:18px; padding:14px 16px; border-radius:12px; border:1px solid var(--border2); background:var(--bg); color:var(--text); width:100%; font-family:inherit;" />
+        </div>
+        <div class="field">
+          <label>Date de commande</label>
+          <input type="date" id="c_date" style="font-size:18px; padding:14px 16px; border-radius:12px; border:1px solid var(--border2); background:var(--bg); color:var(--text); width:100%; font-family:inherit;" />
+        </div>
+      </div>
+
+      <!-- Tableau articles du client -->
+      <div class="field" style="margin-top:8px;">
+        <label style="margin-bottom:12px; display:block;">Articles commandés</label>
+        <div id="items_scroll_wrap" style="border:1px solid var(--border2); border-radius:14px; overflow-x:auto; overflow-y:hidden; background:var(--white); cursor:grab; user-select:none; -webkit-overflow-scrolling:touch; scrollbar-width:thin; scrollbar-color:var(--border2) transparent;">
+          <table style="font-size:15px; width:100%; min-width:520px;">
+            <thead>
+              <tr style="background:var(--bg);">
+                <th style="padding:12px 14px; text-align:left; font-size:12px; font-weight:600; letter-spacing:0.07em; text-transform:uppercase; color:var(--text3); border-bottom:1px solid var(--border2); white-space:nowrap;">Article</th>
+                <th style="padding:12px 10px; text-align:left; font-size:12px; font-weight:600; letter-spacing:0.07em; text-transform:uppercase; color:var(--text3); border-bottom:1px solid var(--border2); white-space:nowrap;">Couleur</th>
+                <th style="padding:12px 10px; text-align:left; font-size:12px; font-weight:600; letter-spacing:0.07em; text-transform:uppercase; color:var(--text3); border-bottom:1px solid var(--border2); white-space:nowrap;">Taille</th>
+                <th style="padding:12px 10px; text-align:center; font-size:12px; font-weight:600; letter-spacing:0.07em; text-transform:uppercase; color:var(--text3); border-bottom:1px solid var(--border2); white-space:nowrap;">Qté</th>
+                <th style="padding:12px 10px; text-align:right; font-size:12px; font-weight:600; letter-spacing:0.07em; text-transform:uppercase; color:var(--text3); border-bottom:1px solid var(--border2); white-space:nowrap;">Prix ¥ CNY</th>
+                <th style="padding:12px 10px; text-align:right; font-size:12px; font-weight:600; letter-spacing:0.07em; text-transform:uppercase; color:var(--text3); border-bottom:1px solid var(--border2); white-space:nowrap;">Total (Ar)</th>
+                <th style="padding:12px 10px; text-align:center; border-bottom:1px solid var(--border2); width:44px;"></th>
+              </tr>
+            </thead>
+            <tbody id="items_tbody">
+              <tr id="items_empty"><td colspan="7" style="text-align:center; color:var(--text3); padding:20px; font-size:14px;">Aucun article — ajoute-en ci-dessous</td></tr>
+            </tbody>
+            <tfoot>
+              <tr style="background:var(--bg); border-top:1px solid var(--border2);">
+                <td colspan="5" style="padding:12px 14px; font-size:15px; font-weight:600; color:var(--text2);">Total commande</td>
+                <td style="padding:12px 10px; text-align:right; font-size:16px; font-weight:700; color:var(--blue);" id="items_total">0 Ar</td>
+                <td></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <!-- Ligne d'ajout d'article -->
+        <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; align-items:flex-end;">
+          <div style="flex:2; min-width:130px;">
+            <div style="font-size:13px; color:var(--text3); margin-bottom:5px;">Article</div>
+            <input type="text" id="item_nom" placeholder="Pantalon, sac..." style="width:100%; font-size:15px; padding:11px 13px; border-radius:10px; border:1px solid var(--border2); background:var(--bg); color:var(--text); font-family:inherit;" />
+          </div>
+          <div style="flex:1; min-width:90px;">
+            <div style="font-size:13px; color:var(--text3); margin-bottom:5px;">Couleur</div>
+            <input type="text" id="item_couleur" placeholder="Noir..." style="width:100%; font-size:15px; padding:11px 13px; border-radius:10px; border:1px solid var(--border2); background:var(--bg); color:var(--text); font-family:inherit;" />
+          </div>
+          <div style="flex:1; min-width:80px;">
+            <div style="font-size:13px; color:var(--text3); margin-bottom:5px;">Taille</div>
+            <input type="text" id="item_taille" placeholder="M, XL..." style="width:100%; font-size:15px; padding:11px 13px; border-radius:10px; border:1px solid var(--border2); background:var(--bg); color:var(--text); font-family:inherit;" />
+          </div>
+          <div style="flex:0 0 64px;">
+            <div style="font-size:13px; color:var(--text3); margin-bottom:5px;">Qté</div>
+            <input type="number" id="item_qty" value="1" min="1" oninput="updatePrixPreview()" style="width:100%; font-size:15px; padding:11px 10px; border-radius:10px; border:1px solid var(--border2); background:var(--bg); color:var(--text); font-family:inherit; -moz-appearance:textfield;" />
+          </div>
+          <div style="flex:1; min-width:110px;">
+            <div style="font-size:13px; color:var(--text3); margin-bottom:5px;">Prix unit. <span style="color:var(--blue); font-weight:600;">¥ CNY</span></div>
+            <input type="number" id="item_prix" placeholder="ex: 18" min="0" step="0.01" oninput="updatePrixPreview()" style="width:100%; font-size:15px; padding:11px 13px; border-radius:10px; border:1px solid var(--border2); background:var(--bg); color:var(--text); font-family:inherit; -moz-appearance:textfield;" />
+          </div>
+          <div style="flex:0 0 auto;">
+            <div style="font-size:13px; color:var(--text3); margin-bottom:5px;">​</div>
+            <button onclick="addItem()" style="background:var(--blue); color:#fff; border:none; border-radius:10px; padding:11px 18px; font-size:20px; font-weight:700; cursor:pointer; line-height:1;" title="Ajouter l'article">+</button>
+          </div>
+        </div>
+
+        <!-- Preview conversion — bien visible sous la ligne -->
+        <div id="item_prix_preview" style="display:none; margin-top:10px; background:rgba(0,122,255,0.07); border:1px solid rgba(0,122,255,0.2); border-radius:12px; padding:12px 16px;">
+          <div style="display:flex; flex-wrap:wrap; gap:16px; align-items:center;">
+            <div>
+              <div style="font-size:12px; color:var(--text3); margin-bottom:3px;">Prix en yuan</div>
+              <div style="font-size:18px; font-weight:700; color:var(--purple);" id="prev_cny">—</div>
+            </div>
+            <div style="font-size:20px; color:var(--text3);">→</div>
+            <div>
+              <div style="font-size:12px; color:var(--text3); margin-bottom:3px;">Prix en Ariary</div>
+              <div style="font-size:18px; font-weight:700; color:var(--blue);" id="prev_ar">—</div>
+            </div>
+            <div style="font-size:20px; color:var(--text3);">×</div>
+            <div>
+              <div style="font-size:12px; color:var(--text3); margin-bottom:3px;">Quantité</div>
+              <div style="font-size:18px; font-weight:700; color:var(--text);" id="prev_qty">—</div>
+            </div>
+            <div style="font-size:20px; color:var(--text3);">=</div>
+            <div style="background:rgba(0,122,255,0.12); border-radius:10px; padding:8px 14px;">
+              <div style="font-size:12px; color:var(--blue); margin-bottom:3px;">Total article</div>
+              <div style="font-size:20px; font-weight:700; color:var(--blue);" id="prev_total">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Récapitulatif montant à verser -->
+      <div id="c_recap" style="display:none; margin:16px 0; background:rgba(0,122,255,0.07); border:1.5px solid rgba(0,122,255,0.25); border-radius:14px; padding:16px 18px;">
+        <div style="font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.07em; color:var(--blue); margin-bottom:12px;">Récapitulatif commande</div>
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:0.5px solid rgba(0,122,255,0.15); font-size:15px;">
+          <span style="color:var(--text2);">Total articles (prix achat)</span>
+          <span style="font-weight:600; color:var(--purple);" id="recap_cny">—</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:0.5px solid rgba(0,122,255,0.15); font-size:15px;">
+          <span style="color:var(--text2);">+ Frais (douane, TVA, transport)</span>
+          <span style="font-weight:600; color:var(--red);" id="recap_frais">—</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; padding-top:12px; margin-top:4px;">
+          <span style="font-size:16px; font-weight:700; color:var(--text);">💰 Montant à verser</span>
+          <span style="font-size:24px; font-weight:700; color:var(--blue);" id="recap_total">—</span>
+        </div>
+        <div style="font-size:12px; color:var(--text3); margin-top:6px;">= coût de revient réel après tous les frais</div>
+      </div>
+
+      <div class="field">
+        <label>Statut</label>
+        <select id="c_statut" style="font-size:17px; padding:14px 16px; border-radius:12px; border:1px solid var(--border2); background:var(--bg); color:var(--text); width:100%; font-family:inherit; cursor:pointer;">
+          <option value="en_attente">En attente</option>
+          <option value="commande">Commandé</option>
+          <option value="en_route">En route</option>
+          <option value="livre">Livré</option>
+          <option value="annule">Annulé</option>
+        </select>
+      </div>
+      <div class="field" style="margin-bottom:0">
+        <label>Notes (optionnel)</label>
+        <input type="text" id="c_notes" placeholder="ex: Payé en 2 fois, taille M..." style="font-size:18px; padding:14px 16px; border-radius:12px; border:1px solid var(--border2); background:var(--bg); color:var(--text); width:100%; font-family:inherit;" />
+      </div>
+      <input type="hidden" id="c_edit_id" value="" />
+      <div style="margin-top:20px; display:flex; gap:10px;">
+        <button onclick="saveClient()" style="flex:2; background:var(--blue); color:#fff; border:none; border-radius:14px; padding:17px; font-size:17px; font-weight:600; font-family:inherit; cursor:pointer;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+          Enregistrer
+        </button>
+        <button onclick="clearForm()" style="flex:1; background:var(--bg); color:var(--text2); border:1px solid var(--border2); border-radius:14px; padding:17px; font-size:17px; font-weight:500; font-family:inherit; cursor:pointer;" onmouseover="this.style.background='#e5e5ea'" onmouseout="this.style.background='var(--bg)'">
+          Effacer
+        </button>
+      </div>
+      <div id="c_msg" style="margin-top:12px; font-size:15px; font-weight:500; min-height:20px;"></div>
+    </div>
+
+    <div class="tiles" style="grid-template-columns: repeat(auto-fit, minmax(140px,1fr));">
+      <div class="tile t-blue">
+        <div class="tile-lbl">Total clients</div>
+        <div class="tile-val" id="stat_nb">0</div>
+        <div class="tile-sub">enregistrés</div>
+      </div>
+      <div class="tile">
+        <div class="tile-lbl">Montant dû total</div>
+        <div class="tile-val" id="stat_total">0 Ar</div>
+        <div class="tile-sub">tous clients</div>
+      </div>
+      <div class="tile t-red">
+        <div class="tile-lbl">Coût articles</div>
+        <div class="tile-val" id="stat_cout">0 Ar</div>
+        <div class="tile-sub">total commandes</div>
+      </div>
+      <div class="tile t-green">
+        <div class="tile-lbl">Bénéfice total</div>
+        <div class="tile-val" id="stat_benef">0 Ar</div>
+        <div class="tile-sub">fonds − coût</div>
+      </div>
+    </div>
+
+    <div class="card" style="padding:0; overflow:hidden;">
+      <div style="padding:22px 26px 16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; border-bottom:0.5px solid var(--border);">
+        <span class="card-eyebrow" style="margin-bottom:0;">Liste des clients</span>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <input type="text" id="c_search" placeholder="Rechercher..." oninput="renderTable()" style="font-size:15px; padding:9px 14px; border-radius:10px; border:1px solid var(--border2); background:var(--bg); color:var(--text); font-family:inherit; width:170px;" />
+          <select id="c_filter" onchange="renderTable()" style="font-size:15px; padding:9px 14px; border-radius:10px; border:1px solid var(--border2); background:var(--bg); color:var(--text); font-family:inherit; cursor:pointer;">
+            <option value="">Tous statuts</option>
+            <option value="en_attente">En attente</option>
+            <option value="commande">Commandé</option>
+            <option value="en_route">En route</option>
+            <option value="livre">Livré</option>
+            <option value="annule">Annulé</option>
+          </select>
+        </div>
+      </div>
+      <div style="overflow-x:auto;">
+        <table style="font-size:15px;">
+          <thead>
+            <tr>
+              <th>Client</th>
+              <th>Montant dû (Ar)</th>
+              <th>Date</th>
+              <th>Articles</th>
+              <th>Bénéfice</th>
+              <th>Statut</th>
+              <th style="text-align:right; width:110px;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="client_tbody">
+            <tr><td colspan="6" style="text-align:center; color:var(--text3); padding:36px 20px; font-size:16px;">Aucun client enregistré</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:10px; margin-top:4px; flex-wrap:wrap;">
+      <button onclick="exportCSV()" class="cta-btn">Exporter CSV <span class="arr">↓</span></button>
+      <button onclick="if(confirm('Supprimer tous les clients ?')){localStorage.removeItem(KEY);renderTable();updateStats();}" class="cta-btn" style="color:var(--red);">Tout effacer <span class="arr" style="color:var(--red);">✕</span></button>
+    </div>
+
+  </div>
+  <footer>ImportCalc · Données sauvegardées localement dans ton navigateur</footer>
+</div>
+
+
+
+
+<!-- PAGE 4 GUIDE -->
+<div id="page-guide" class="page">
+
+  <div class="docs-hero">
+    <h1>Guide complet</h1>
+    <p>Comprends tous les calculs, les devises et les frais pour importer en toute confiance.</p>
+  </div>
+
+  <div class="wrap">
+
+    <!-- Schéma visuel résumé -->
+    <div class="card" style="padding:24px 20px;">
+      <div class="card-eyebrow">Vue d'ensemble</div>
+      <div class="card-h2">Le flux complet en un coup d'œil</div>
+
+      <div style="overflow-x:auto; padding:8px 0;">
+        <div style="min-width:340px;">
+
+          <!-- Étape 1 : Fonds -->
+          <div style="display:flex; align-items:center; gap:0; margin-bottom:6px;">
+            <div style="flex:1; background:rgba(0,122,255,0.10); border:1.5px solid rgba(0,122,255,0.3); border-radius:14px; padding:14px 16px; text-align:center;">
+              <div style="font-size:22px; margin-bottom:4px;">💰</div>
+              <div style="font-size:13px; font-weight:700; color:var(--blue);">Ton fonds</div>
+              <div style="font-size:12px; color:var(--text3); margin-top:2px;">ex: 100 000 Ar</div>
+            </div>
+          </div>
+
+          <div style="text-align:center; font-size:20px; color:var(--text3); margin:2px 0;">↓</div>
+
+          <!-- Étape 2 : Conversion -->
+          <div style="display:flex; align-items:stretch; gap:8px; margin-bottom:6px;">
+            <div style="flex:1; background:rgba(88,86,214,0.08); border:1.5px solid rgba(88,86,214,0.25); border-radius:14px; padding:14px 16px; text-align:center;">
+              <div style="font-size:20px; margin-bottom:4px;">💱</div>
+              <div style="font-size:13px; font-weight:700; color:var(--purple);">Conversion</div>
+              <div style="font-size:12px; color:var(--text3); margin-top:2px;">Ar → ¥ CNY</div>
+              <div style="font-size:11px; color:var(--purple); margin-top:4px; font-weight:600;">÷ taux du jour</div>
+            </div>
+            <div style="display:flex; align-items:center; font-size:18px; color:var(--text3);">→</div>
+            <div style="flex:1; background:rgba(88,86,214,0.08); border:1.5px solid rgba(88,86,214,0.25); border-radius:14px; padding:14px 16px; text-align:center;">
+              <div style="font-size:20px; margin-bottom:4px;">🛒</div>
+              <div style="font-size:13px; font-weight:700; color:var(--purple);">Achat en Chine</div>
+              <div style="font-size:12px; color:var(--text3); margin-top:2px;">PinDuoDuo 拼多多</div>
+              <div style="font-size:11px; color:var(--purple); margin-top:4px; font-weight:600;">prix en ¥ CNY</div>
+            </div>
+          </div>
+
+          <div style="text-align:center; font-size:20px; color:var(--text3); margin:2px 0;">↓</div>
+
+          <!-- Étape 3 : Frais -->
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:6px;">
+            <div style="background:rgba(255,149,0,0.08); border:1px solid rgba(255,149,0,0.25); border-radius:12px; padding:10px 12px; text-align:center;">
+              <div style="font-size:16px; margin-bottom:2px;">🚢</div>
+              <div style="font-size:12px; font-weight:700; color:var(--orange);">Transport</div>
+              <div style="font-size:11px; color:var(--text3);">+10% (maritime)</div>
+            </div>
+            <div style="background:rgba(255,149,0,0.08); border:1px solid rgba(255,149,0,0.25); border-radius:12px; padding:10px 12px; text-align:center;">
+              <div style="font-size:16px; margin-bottom:2px;">🏛️</div>
+              <div style="font-size:12px; font-weight:700; color:var(--orange);">Douane</div>
+              <div style="font-size:11px; color:var(--text3);">+20% valeur CAF</div>
+            </div>
+            <div style="background:rgba(255,149,0,0.08); border:1px solid rgba(255,149,0,0.25); border-radius:12px; padding:10px 12px; text-align:center;">
+              <div style="font-size:16px; margin-bottom:2px;">🧾</div>
+              <div style="font-size:12px; font-weight:700; color:var(--orange);">TVA</div>
+              <div style="font-size:11px; color:var(--text3);">+20% (CAF+douane)</div>
+            </div>
+            <div style="background:rgba(142,142,147,0.08); border:1px solid rgba(142,142,147,0.2); border-radius:12px; padding:10px 12px; text-align:center;">
+              <div style="font-size:16px; margin-bottom:2px;">📦</div>
+              <div style="font-size:12px; font-weight:700; color:var(--text3);">Divers</div>
+              <div style="font-size:11px; color:var(--text3);">+5% imprévus</div>
+            </div>
+          </div>
+
+          <div style="text-align:center; font-size:20px; color:var(--text3); margin:2px 0;">↓</div>
+
+          <!-- Étape 4 : Coût de revient -->
+          <div style="background:rgba(255,59,48,0.07); border:1.5px solid rgba(255,59,48,0.3); border-radius:14px; padding:14px 16px; text-align:center; margin-bottom:6px;">
+            <div style="font-size:20px; margin-bottom:4px;">🧮</div>
+            <div style="font-size:14px; font-weight:700; color:var(--red);">Coût de revient réel</div>
+            <div style="font-size:12px; color:var(--text3); margin-top:4px;">Prix achat + tous les frais</div>
+            <div style="font-size:12px; color:var(--red); font-weight:600; margin-top:4px;">⚠️ Toujours plus élevé que le prix d'achat !</div>
+          </div>
+
+          <div style="text-align:center; font-size:20px; color:var(--text3); margin:2px 0;">↓</div>
+
+          <!-- Étape 5 : Vente -->
+          <div style="display:flex; align-items:stretch; gap:8px; margin-bottom:6px;">
+            <div style="flex:1; background:rgba(52,199,89,0.08); border:1.5px solid rgba(52,199,89,0.3); border-radius:14px; padding:14px 16px; text-align:center;">
+              <div style="font-size:20px; margin-bottom:4px;">🏷️</div>
+              <div style="font-size:13px; font-weight:700; color:var(--green2);">Prix de vente</div>
+              <div style="font-size:12px; color:var(--text3); margin-top:2px;">Coût × (1 + marge)</div>
+              <div style="font-size:11px; color:var(--green2); margin-top:4px; font-weight:600;">en Ariary à Mada</div>
+            </div>
+            <div style="display:flex; align-items:center; font-size:18px; color:var(--text3);">→</div>
+            <div style="flex:1; background:rgba(52,199,89,0.08); border:1.5px solid rgba(52,199,89,0.3); border-radius:14px; padding:14px 16px; text-align:center;">
+              <div style="font-size:20px; margin-bottom:4px;">🎉</div>
+              <div style="font-size:13px; font-weight:700; color:var(--green2);">Bénéfice net</div>
+              <div style="font-size:12px; color:var(--text3); margin-top:2px;">Vente − Revient</div>
+              <div style="font-size:11px; color:var(--green2); margin-top:4px; font-weight:600;">ton profit !</div>
+            </div>
+          </div>
+
+          <!-- Règle d'or -->
+          <div style="background:rgba(0,122,255,0.07); border:1px solid rgba(0,122,255,0.2); border-radius:12px; padding:12px 16px; margin-top:10px; text-align:center;">
+            <div style="font-size:13px; font-weight:700; color:var(--blue);">💡 Règle d'or</div>
+            <div style="font-size:13px; color:var(--text2); margin-top:4px;">Prix de vente &gt; Coût de revient &gt; Prix d'achat chinois</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Les devises -->
+    <div class="card">
+      <div class="card-eyebrow">Les devises</div>
+      <div class="card-h2">CNY, USD, Ariary — c'est quoi ?</div>
+
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap:12px; margin-top:16px;">
+        <div style="background:rgba(88,86,214,0.08); border:0.5px solid rgba(88,86,214,0.25); border-radius:16px; padding:18px;">
+          <div style="font-size:28px; font-weight:700; color:var(--purple);">¥ CNY</div>
+          <div style="font-size:15px; font-weight:600; color:var(--text); margin:6px 0 4px;">Yuan renminbi</div>
+          <div style="font-size:14px; color:var(--text2);">Devise officielle de la Chine. C'est dans cette devise que tu paies tes fournisseurs sur PewPew Dock et autres plateformes chinoises.</div>
+        </div>
+        <div style="background:rgba(0,122,255,0.08); border:0.5px solid rgba(0,122,255,0.25); border-radius:16px; padding:18px;">
+          <div style="font-size:28px; font-weight:700; color:var(--blue);">Ar MGA</div>
+          <div style="font-size:15px; font-weight:600; color:var(--text); margin:6px 0 4px;">Ariary malgache</div>
+          <div style="font-size:14px; color:var(--text2);">Devise officielle de Madagascar. Tes clients te paient en Ariary, et les douanes malgaches calculent les taxes en Ariary.</div>
+        </div>
+        <div style="background:rgba(52,199,89,0.08); border:0.5px solid rgba(52,199,89,0.25); border-radius:16px; padding:18px;">
+          <div style="font-size:28px; font-weight:700; color:var(--green2);">Taux</div>
+          <div style="font-size:15px; font-weight:600; color:var(--text); margin:6px 0 4px;">1 CNY ≈ 635 Ar</div>
+          <div style="font-size:14px; color:var(--text2);">Le taux change chaque jour. Le simulateur le récupère automatiquement si tu as une connexion internet.</div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg); border-radius:14px; padding:16px 18px; margin-top:16px;">
+        <div style="font-size:14px; font-weight:600; color:var(--text); margin-bottom:10px;">Exemple concret</div>
+        <div style="font-size:15px; color:var(--text2); line-height:1.8;">
+          Tu vois un pantalon à <strong style="color:var(--purple);">30 ¥</strong> sur PewPew Dock (c'est PinDuoDuo 拼多多 🛒).<br>
+          30 × 635 = <strong style="color:var(--blue);">19 050 Ar</strong> — c'est ton prix d'achat en Ariary.<br>
+          Mais ce n'est <strong style="color:var(--red);">pas</strong> ton coût final — il faut ajouter les frais !
+        </div>
+      </div>
+    </div>
+
+    <!-- Calcul interactif -->
+    <div class="card">
+      <div class="card-eyebrow">Calculateur interactif</div>
+      <div class="card-h2">Change les valeurs, vois en direct</div>
+      <div class="card-sub">Modifie le prix d'achat et le prix de vente pour comprendre les bénéfices et les pertes.</div>
+
+      <!-- Inputs -->
+      <div class="grid2" style="margin-bottom:16px;">
+        <div class="field" style="margin-bottom:0">
+          <label style="font-size:15px; font-weight:500; color:var(--text2); margin-bottom:8px; display:block;">Prix d'achat <span style="color:var(--purple); font-weight:700;">¥ CNY</span></label>
+          <input type="number" id="g_cny" value="30" min="0" step="1" oninput="calcGuide()" style="font-size:22px; font-weight:700;" />
+          <div id="g_cny_preview" style="margin-top:8px; font-size:14px; color:var(--text3);">
+            = <span id="g_cny_ar" style="font-weight:700; color:var(--blue);">19 050 Ar</span>
+          </div>
+        </div>
+        <div class="field" style="margin-bottom:0">
+          <label style="font-size:15px; font-weight:500; color:var(--text2); margin-bottom:8px; display:block;">Prix de vente <span style="color:var(--green2); font-weight:700;">Ariary</span></label>
+          <input type="number" id="g_vente" value="50000" min="0" step="1000" oninput="calcGuide()" style="font-size:22px; font-weight:700;" />
+        </div>
+      </div>
+
+      <!-- Étapes dynamiques -->
+      <div id="g_steps" style="display:flex; flex-direction:column; gap:0;"></div>
+
+      <!-- Résultat bénéfice/perte -->
+      <div id="g_result" style="margin-top:16px;"></div>
+
+      <!-- Scénarios rapides -->
+      <div style="margin-top:20px;">
+        <div style="font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--text3); margin-bottom:10px;">Scénarios de prix de vente suggérés</div>
+        <div id="g_scenarios" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(110px,1fr)); gap:8px;"></div>
+      </div>
+    </div>
+
+    <!-- Explication des 4 tuiles résultats -->
+    <div class="card">
+      <div class="card-eyebrow">Comprendre les résultats</div>
+      <div class="card-h2">Les 4 chiffres du simulateur expliqués</div>
+      <div class="card-sub">Voilà ce que veut dire chaque tuile dans la page Simulateur.</div>
+
+      <div style="display:flex; flex-direction:column; gap:12px; margin-top:4px;">
+
+        <div style="border:1.5px solid rgba(0,122,255,0.3); background:rgba(0,122,255,0.06); border-radius:16px; padding:18px 20px;">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+            <div style="background:var(--blue); color:#fff; font-size:13px; font-weight:700; padding:4px 12px; border-radius:20px;">Budget en yuan ¥</div>
+          </div>
+          <div style="font-size:15px; color:var(--text2); line-height:1.7;">
+            C'est combien de yuan tu peux dépenser en Chine avec ton fonds de départ. <br>
+            <strong style="color:var(--text);">Exemple :</strong> Fonds = 100 000 Ar ÷ taux (635) = <strong style="color:var(--blue);">≈ 157 ¥</strong> à dépenser sur PinDuoDuo 🛒
+          </div>
+        </div>
+
+        <div style="border:1.5px solid rgba(255,59,48,0.25); background:rgba(255,59,48,0.05); border-radius:16px; padding:18px 20px;">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+            <div style="background:var(--red); color:#fff; font-size:13px; font-weight:700; padding:4px 12px; border-radius:20px;">Coût de revient</div>
+          </div>
+          <div style="font-size:15px; color:var(--text2); line-height:1.7;">
+            C'est ce que tu as <strong style="color:var(--text);">vraiment dépensé</strong> après TOUT : prix d'achat + transport + douane + TVA + divers. C'est toujours plus élevé que ton fonds de départ à cause des frais.<br>
+            <strong style="color:var(--text);">Exemple :</strong> 100 000 Ar de fonds → <strong style="color:var(--red);">163 400 Ar</strong> de coût réel après frais.
+          </div>
+        </div>
+
+        <div style="border:1.5px solid var(--border2); background:var(--bg); border-radius:16px; padding:18px 20px;">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+            <div style="background:var(--text2); color:#fff; font-size:13px; font-weight:700; padding:4px 12px; border-radius:20px;">Prix de vente cible</div>
+          </div>
+          <div style="font-size:15px; color:var(--text2); line-height:1.7;">
+            C'est le prix auquel tu dois vendre chaque article pour atteindre ta marge. Formule : <strong style="color:var(--text);">coût de revient × (1 + marge %)</strong><br>
+            <strong style="color:var(--text);">Exemple :</strong> 163 400 × 1.50 (marge 50%) = <strong style="color:var(--text);">245 100 Ar</strong> par article.
+          </div>
+        </div>
+
+        <div style="border:1.5px solid rgba(52,199,89,0.35); background:rgba(52,199,89,0.06); border-radius:16px; padding:18px 20px;">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+            <div style="background:var(--green2); color:#fff; font-size:13px; font-weight:700; padding:4px 12px; border-radius:20px;">Bénéfice net estimé</div>
+          </div>
+          <div style="font-size:15px; color:var(--text2); line-height:1.7;">
+            Ce que tu gagnes si tu vends <strong style="color:var(--text);">tout</strong>. Formule : <strong style="color:var(--text);">prix de vente − coût de revient</strong><br>
+            <strong style="color:var(--text);">Exemple :</strong> 245 100 − 163 400 = <strong style="color:var(--green2);">+ 81 700 Ar de profit</strong><br>
+            Tu mets 100 000 Ar, tu ressors avec 181 700 Ar si tout est vendu. 🎉
+          </div>
+        </div>
+
+      </div>
+
+      <div style="background:var(--bg); border-radius:14px; padding:16px 18px; margin-top:16px; border:0.5px solid var(--border);">
+        <div style="font-size:14px; font-weight:600; color:var(--text); margin-bottom:8px;">💡 En résumé simple</div>
+        <div style="font-size:14px; color:var(--text2); line-height:1.8;">
+          Tu mets <strong>ton fonds</strong> → tu achètes en Chine → tu paies les frais → ton argent "grossit" à cause des taxes → tu vends plus cher → tu fais du bénéfice.<br>
+          La règle d'or : <strong style="color:var(--blue);">le prix de vente doit toujours être supérieur au coût de revient</strong>, pas au prix d'achat chinois !
+        </div>
+      </div>
+    </div>
+
+    <!-- Conseils pratiques -->
+    <div class="card">
+      <div class="card-eyebrow">Conseils pratiques</div>
+      <div class="card-h2">Les erreurs à éviter</div>
+
+      <div style="display:flex; flex-direction:column; gap:12px; margin-top:8px;">
+        <div style="display:flex; gap:12px; align-items:flex-start; padding:14px; background:var(--bg); border-radius:12px;">
+          <span style="font-size:22px; flex-shrink:0;">🚢</span>
+          <div>
+            <div style="font-size:15px; font-weight:600; color:var(--text); margin-bottom:4px;">Choisir le maritime, pas l'aérien</div>
+            <div style="font-size:14px; color:var(--text2);">L'aérien coûte 25–40% du prix d'achat en transport. Le maritime LCL coûte seulement 8–12%. Pour des vêtements et sacs, le maritime est largement suffisant (25–35 jours).</div>
+          </div>
+        </div>
+        <div style="display:flex; gap:12px; align-items:flex-start; padding:14px; background:var(--bg); border-radius:12px;">
+          <span style="font-size:22px; flex-shrink:0;">📦</span>
+          <div>
+            <div style="font-size:15px; font-weight:600; color:var(--text); margin-bottom:4px;">LCL vs FCL</div>
+            <div style="font-size:14px; color:var(--text2);"><strong>LCL</strong> (Less than Container Load) = tu partages un conteneur. Idéal pour débuter avec moins de marchandises. <strong>FCL</strong> = conteneur entier pour toi seul. Rentable seulement si tu as beaucoup de volume.</div>
+          </div>
+        </div>
+        <div style="display:flex; gap:12px; align-items:flex-start; padding:14px; background:var(--bg); border-radius:12px;">
+          <span style="font-size:22px; flex-shrink:0;">💱</span>
+          <div>
+            <div style="font-size:15px; font-weight:600; color:var(--text); margin-bottom:4px;">Surveille le taux CNY/Ar</div>
+            <div style="font-size:14px; color:var(--text2);">Le taux change chaque jour. Une variation de 50 Ar sur le taux peut représenter plusieurs milliers d'Ariary de différence sur une grosse commande. Utilise le bouton "Actualiser" dans le simulateur.</div>
+          </div>
+        </div>
+        <div style="display:flex; gap:12px; align-items:flex-start; padding:14px; background:var(--bg); border-radius:12px;">
+          <span style="font-size:22px; flex-shrink:0;">🧾</span>
+          <div>
+            <div style="font-size:15px; font-weight:600; color:var(--text); margin-bottom:4px;">Ne pas oublier les taxes</div>
+            <div style="font-size:14px; color:var(--text2);">Beaucoup d'importateurs débutants oublient la TVA (20%) qui s'ajoute APRÈS les droits de douane. C'est pour ça que le revient réel est souvent 60–70% plus cher que le prix d'achat chinois.</div>
+          </div>
+        </div>
+        <div style="display:flex; gap:12px; align-items:flex-start; padding:14px; background:var(--bg); border-radius:12px;">
+          <span style="font-size:22px; flex-shrink:0;">🤝</span>
+          <div>
+            <div style="font-size:15px; font-weight:600; color:var(--text); margin-bottom:4px;">Passer par un transitaire</div>
+            <div style="font-size:14px; color:var(--text2);">Pour un premier import, un transitaire gère tous les papiers et la douane à ta place. Ça évite les mauvaises surprises et les marchandises bloquées au port.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-row" style="margin-top:20px;">
+        <button class="cta-btn" onclick="showPage('calc')">
+          ← Aller au simulateur <span class="arr"></span>
+        </button>
+        <button class="cta-btn" onclick="showPage('docs')">
+          Documents requis <span class="arr">→</span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+  <footer>ImportCalc · Guide indicatif — les taux réels peuvent varier</footer>
+</div>
+
+<!-- Firebase SDK -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+import { getFirestore, collection, onSnapshot, doc, setDoc, deleteDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBxyy_jR_AMZ_0utb2eEyfi_YH8SNRXa9g",
+  authDomain: "simulationventelou.firebaseapp.com",
+  projectId: "simulationventelou",
+  storageBucket: "simulationventelou.firebasestorage.app",
+  messagingSenderId: "659010963611",
+  appId: "1:659010963611:web:e409df260095faaecb1e3e",
+  measurementId: "G-Q2ENDWL65D"
+};
+
+const app = initializeApp(firebaseConfig);
+const db  = getFirestore(app);
+const COLLECTION = 'clients';
+
+// ── Sync indicator ──
+function setSyncStatus(status) {
+  const el = document.getElementById('sync_status');
+  if (!el) return;
+  const states = {
+    ok:      { text: '🟢 Synchronisé',    color: 'var(--green2)' },
+    syncing: { text: '🔄 Synchronisation…', color: 'var(--orange)' },
+    error:   { text: '🔴 Erreur sync',     color: 'var(--red)' },
+    offline: { text: '🟡 Hors ligne',      color: 'var(--orange)' },
+  };
+  const s = states[status] || states.ok;
+  el.textContent = s.text;
+  el.style.color = s.color;
+}
+
+// ── Save client to Firestore ──
+window.saveClientToCloud = async function(client) {
+  try {
+    setSyncStatus('syncing');
+    await setDoc(doc(db, COLLECTION, client.id), client);
+    setSyncStatus('ok');
+  } catch(e) {
+    console.error('Firestore save error:', e);
+    setSyncStatus('error');
+  }
+};
+
+// ── Delete client from Firestore ──
+window.deleteClientFromCloud = async function(id) {
+  try {
+    await deleteDoc(doc(db, COLLECTION, id));
+  } catch(e) {
+    console.error('Firestore delete error:', e);
+  }
+};
+
+// ── Real-time listener — sync between devices ──
+onSnapshot(collection(db, COLLECTION), (snapshot) => {
+  try {
+    const clients = [];
+    snapshot.forEach(d => clients.push(d.data()));
+    // Sort by creation date
+    clients.sort((a, b) => (a.createdAt || '').localeCompare(b.createdAt || ''));
+    // Save to localStorage as cache
+    localStorage.setItem('importcalc_clients', JSON.stringify(clients));
+    // Re-render
+    if (typeof renderTable === 'function') renderTable();
+    if (typeof updateStats === 'function') updateStats();
+    setSyncStatus('ok');
+  } catch(e) {
+    setSyncStatus('error');
+  }
+}, (error) => {
+  console.error('Firestore listener error:', error);
+  setSyncStatus('offline');
+});
+
+console.log('Firebase connecté ✅');
+</script>
+
+<script>
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  const idx = {calc:0, docs:1, clients:2, guide:3}[id] ?? 0;
+  document.querySelectorAll('.nav-btn')[idx].classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleTheme() {
+  const isDark = document.body.classList.toggle('dark');
+  document.getElementById('theme-icon').textContent  = isDark ? '☀️' : '🌙';
+  document.getElementById('theme-label').textContent = isDark ? 'Light' : 'Dark';
+  localStorage.setItem('importcalc_theme', isDark ? 'dark' : 'light');
+}
+
+// Restore saved theme on load
+(function() {
+  if (localStorage.getItem('importcalc_theme') === 'dark') {
+    document.body.classList.add('dark');
+    document.getElementById('theme-icon').textContent  = '☀️';
+    document.getElementById('theme-label').textContent = 'Light';
+  }
+})();
+
+/* ── CLIENT STORAGE ── */
+const KEY = 'importcalc_clients';
+
+function loadClients() {
+  try { return JSON.parse(localStorage.getItem(KEY)) || []; }
+  catch(e) { return []; }
+}
+function saveClients(arr) {
+  localStorage.setItem(KEY, JSON.stringify(arr));
+  // Sync vers Firebase si disponible
+  if (typeof window.saveClientToCloud === 'function') {
+    arr.forEach(c => window.saveClientToCloud(c));
+  }
+}
+
+/* ── ITEMS TABLE (articles par client) ── */
+let currentItems = []; // articles en cours de saisie
+
+function getCNYtoAR() {
+  return parseFloat(document.getElementById('cny_ar')?.value) || 635;
+}
+
+function updateUnitCNY() {
+  const ar   = parseFloat(document.getElementById('unit_achat').value) || 0;
+  const rate = parseFloat(document.getElementById('cny_ar').value)     || 635;
+  const cny  = ar / rate;
+  const el   = document.getElementById('unit_achat_cny_val');
+  if (el) el.textContent = cny.toFixed(2) + ' ¥';
+}
+
+function updatePrixPreview() {
+  const cny  = parseFloat(document.getElementById('item_prix').value) || 0;
+  const qty  = parseInt(document.getElementById('item_qty').value)    || 1;
+  const rate = getCNYtoAR();
+  const ar   = Math.round(cny * rate);
+  const box  = document.getElementById('item_prix_preview');
+  if (!box) return;
+
+  if (cny > 0) {
+    box.style.display = 'block';
+    document.getElementById('prev_cny').textContent   = cny.toFixed(2) + ' ¥';
+    document.getElementById('prev_ar').textContent    = ar.toLocaleString('fr-FR') + ' Ar';
+    document.getElementById('prev_qty').textContent   = qty + ' pcs';
+    document.getElementById('prev_total').textContent = (ar * qty).toLocaleString('fr-FR') + ' Ar';
+  } else {
+    box.style.display = 'none';
+  }
+}
+
+function addItem() {
+  const nom     = document.getElementById('item_nom').value.trim();
+  const couleur = document.getElementById('item_couleur').value.trim();
+  const taille  = document.getElementById('item_taille').value.trim();
+  const qty     = parseInt(document.getElementById('item_qty').value)    || 1;
+  const prix_cny= parseFloat(document.getElementById('item_prix').value) || 0;
+
+  if (!nom) { document.getElementById('item_nom').focus(); return; }
+
+  const rate    = getCNYtoAR();
+  const prix_ar = Math.round(prix_cny * rate);
+
+  currentItems.push({ id: Date.now().toString(), nom, couleur, taille, qty, prix_cny, prix_ar });
+
+  document.getElementById('item_nom').value     = '';
+  document.getElementById('item_couleur').value = '';
+  document.getElementById('item_taille').value  = '';
+  document.getElementById('item_qty').value     = '1';
+  document.getElementById('item_prix').value    = '';
+  document.getElementById('item_prix_preview').textContent = '';
+  document.getElementById('item_nom').focus();
+
+  renderItemsTable();
+}
+
+function removeItem(id) {
+  currentItems = currentItems.filter(i => i.id !== id);
+  renderItemsTable();
+}
+
+function renderItemsTable() {
+  const tbody   = document.getElementById('items_tbody');
+  const totalEl = document.getElementById('items_total');
+  if (!tbody) return;
+
+  if (currentItems.length === 0) {
+    tbody.innerHTML = '<tr id="items_empty"><td colspan="7" style="text-align:center; color:var(--text3); padding:20px; font-size:14px;">Aucun article — ajoute-en ci-dessous</td></tr>';
+    if (totalEl) totalEl.textContent = '0 Ar';
+    return;
+  }
+
+  const totalAr = currentItems.reduce((s, i) => s + i.qty * (i.prix_ar || i.prix || 0), 0);
+  const totalCNY= currentItems.reduce((s, i) => s + i.qty * (i.prix_cny || 0), 0);
+
+  tbody.innerHTML = currentItems.map(i => {
+    const ar  = i.prix_ar  || i.prix || 0;
+    const cny = i.prix_cny || 0;
+    return `
+    <tr style="border-bottom:0.5px solid var(--border);">
+      <td style="padding:12px 14px; font-weight:600; font-size:15px;">${i.nom}</td>
+      <td style="padding:12px 10px; font-size:14px; color:var(--text2);">${i.couleur || '—'}</td>
+      <td style="padding:12px 10px; font-size:14px; color:var(--text2);">${i.taille || '—'}</td>
+      <td style="padding:12px 10px; font-size:15px; font-weight:600; text-align:center;">${i.qty}</td>
+      <td style="padding:12px 10px; font-size:14px; text-align:right;">
+        <span style="font-weight:600; color:var(--purple);">${cny ? cny.toFixed(2) + ' ¥' : '—'}</span>
+        ${ar ? '<br><span style="font-size:12px; color:var(--text3);">≈ ' + ar.toLocaleString('fr-FR') + ' Ar</span>' : ''}
+      </td>
+      <td style="padding:12px 10px; font-size:15px; font-weight:700; text-align:right; color:var(--blue);">${(i.qty * ar).toLocaleString('fr-FR')} Ar</td>
+      <td style="padding:12px 10px; text-align:center;">
+        <button onclick="removeItem('${i.id}')" style="background:none; border:none; font-size:16px; cursor:pointer; color:var(--red); padding:2px 6px;">✕</button>
+      </td>
+    </tr>`;
+  }).join('');
+
+  if (totalEl) totalEl.innerHTML = `${totalAr.toLocaleString('fr-FR')} Ar <span style="font-size:13px; color:var(--purple); font-weight:600; margin-left:8px;">≈ ${totalCNY.toFixed(2)} ¥</span>`;
+
+  // Mise à jour recap "montant à verser"
+  const p = getP();
+  const totalAvecFrais = currentItems.reduce((s, i) => {
+    const ar = i.prix_ar || i.prix || 0;
+    const t = ar * p.t, caf = ar + t, d = caf * p.d, v = (caf+d)*p.v, m = ar*p.m;
+    return s + Math.round((ar + t + d + v + m) * i.qty);
+  }, 0);
+  const frais = totalAvecFrais - totalAr;
+  const recap = document.getElementById('c_recap');
+  if (recap) {
+    recap.style.display = currentItems.length > 0 ? 'block' : 'none';
+    const el_cny   = document.getElementById('recap_cny');
+    const el_frais = document.getElementById('recap_frais');
+    const el_total = document.getElementById('recap_total');
+    if (el_cny)   el_cny.textContent   = totalAr.toLocaleString('fr-FR') + ' Ar  ≈ ' + totalCNY.toFixed(2) + ' ¥';
+    if (el_frais) el_frais.textContent = '+ ' + Math.round(frais).toLocaleString('fr-FR') + ' Ar';
+    if (el_total) el_total.textContent = totalAvecFrais.toLocaleString('fr-FR') + ' Ar';
+  }
+}
+
+function clearForm() {
+  document.getElementById('c_nom').value    = '';
+  document.getElementById('c_date').value   = '';
+  document.getElementById('c_statut').value = 'en_attente';
+  document.getElementById('c_notes').value  = '';
+  document.getElementById('c_edit_id').value= '';
+  document.getElementById('c_msg').textContent = '';
+  const recap = document.getElementById('c_recap');
+  if (recap) recap.style.display = 'none';
+  currentItems = [];
+  renderItemsTable();
+}
+
+function saveClient() {
+  const nom      = document.getElementById('c_nom').value.trim();
+  const date     = document.getElementById('c_date').value;
+  const statut   = document.getElementById('c_statut').value;
+  const notes    = document.getElementById('c_notes').value.trim();
+  const editId   = document.getElementById('c_edit_id').value;
+
+  // Calcul automatique du montant à verser (coût de revient avec frais)
+  const p2 = getP();
+  const fond = currentItems.reduce((s, i) => {
+    const ar = i.prix_ar || i.prix || 0;
+    const t = ar * p2.t, caf = ar + t, d = caf * p2.d, v = (caf+d)*p2.v, m = ar*p2.m;
+    return s + Math.round((ar + t + d + v + m) * i.qty);
+  }, 0);
+
+  if (!nom) {
+    showMsg('Saisis le nom du client.', 'var(--red)');
+    return;
+  }
+  if (!date) {
+    showMsg('Choisis une date.', 'var(--red)');
+    return;
+  }
+
+  const clients = loadClients();
+
+  if (editId) {
+    const idx = clients.findIndex(c => c.id === editId);
+    if (idx !== -1) {
+      clients[idx] = { ...clients[idx], nom, fond, date, items: [...currentItems], statut, notes };
+    }
+    showMsg('Client mis à jour.', 'var(--green2)');
+  } else {
+    clients.push({
+      id: Date.now().toString(),
+      nom, fond, date,
+      items: [...currentItems],
+      statut, notes,
+      createdAt: new Date().toISOString()
+    });
+    showMsg('Client enregistré !', 'var(--green2)');
+  }
+
+  saveClients(clients);
+  clearForm();
+  renderTable();
+  updateStats();
+}
+
+function showMsg(txt, color) {
+  const el = document.getElementById('c_msg');
+  el.textContent = txt;
+  el.style.color = color;
+  setTimeout(() => { el.textContent = ''; }, 3000);
+}
+
+function deleteClient(id) {
+  if (!confirm('Supprimer ce client ?')) return;
+  const clients = loadClients().filter(c => c.id !== id);
+  saveClients(clients);
+  // Supprimer aussi dans Firebase
+  if (typeof window.deleteClientFromCloud === 'function') {
+    window.deleteClientFromCloud(id);
+  }
+  renderTable();
+  updateStats();
+}
+
+function editClient(id) {
+  const client = loadClients().find(c => c.id === id);
+  if (!client) return;
+  document.getElementById('c_nom').value      = client.nom;
+  document.getElementById('c_date').value     = client.date;
+  document.getElementById('c_statut').value   = client.statut;
+  document.getElementById('c_notes').value    = client.notes || '';
+  document.getElementById('c_edit_id').value  = client.id;
+  currentItems = client.items ? client.items.map(i => ({...i, id: i.id || Date.now().toString() + Math.random()})) : [];
+  renderItemsTable();
+  document.getElementById('c_nom').focus();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  showMsg('Mode édition — modifie puis clique Enregistrer.', '#bf5900');
+}
+
+const statutStyles = {
+  en_attente: { label:'En attente', bg:'rgba(255,149,0,0.12)',  color:'#9a5c00' },
+  commande:   { label:'Commandé',   bg:'rgba(0,122,255,0.10)',  color:'#0040a0' },
+  en_route:   { label:'En route',   bg:'rgba(88,86,214,0.10)',  color:'#3634a3' },
+  livre:      { label:'Livré',      bg:'rgba(52,199,89,0.12)',  color:'#248a3d' },
+  annule:     { label:'Annulé',     bg:'rgba(255,59,48,0.10)',  color:'#c0392b' },
+};
+
+function fmtDate(d) {
+  if (!d) return '—';
+  const [y,m,j] = d.split('-');
+  return j + '/' + m + '/' + y;
+}
+
+function renderTable() {
+  const clients  = loadClients();
+  const search   = (document.getElementById('c_search')?.value || '').toLowerCase();
+  const filter   = document.getElementById('c_filter')?.value || '';
+
+  let rows = clients.filter(c => {
+    const itemNames = (c.items||[]).map(i => i.nom).join(' ').toLowerCase();
+    const matchSearch = !search || c.nom.toLowerCase().includes(search) || itemNames.includes(search);
+    const matchFilter = !filter || c.statut === filter;
+    return matchSearch && matchFilter;
+  });
+
+  const tbody = document.getElementById('client_tbody');
+  if (!tbody) return;
+
+  if (rows.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:var(--text3); padding:36px 20px; font-size:16px;">' + (clients.length === 0 ? 'Aucun client enregistré' : 'Aucun résultat') + '</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = rows.map(c => {
+    const s = statutStyles[c.statut] || statutStyles.en_attente;
+    const items = c.items || [];
+    const totalItems = items.reduce((sum, i) => sum + i.qty * (i.prix_ar || i.prix || 0), 0);
+    const nbItems = items.reduce((sum, i) => sum + i.qty, 0);
+    const fond    = c.fond || 0;
+    const benef   = fond - totalItems;
+    const bColor  = benef >= 0 ? 'var(--green2)' : 'var(--red)';
+    const bSign   = benef >= 0 ? '+' : '';
+
+    const itemsDetail = items.length > 0 ? `
+      <tr id="detail_${c.id}" style="display:none;">
+        <td colspan="7" style="padding:0; background:rgba(0,122,255,0.03);">
+          <div style="padding:16px 20px;">
+
+            <div style="font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.07em; color:var(--text3); margin-bottom:10px;">Détail des articles</div>
+            <table style="width:100%; font-size:14px; border-collapse:collapse;">
+              <thead>
+                <tr style="background:var(--bg);">
+                  <th style="padding:8px 12px; text-align:left; color:var(--text3); font-weight:600; font-size:12px;">Article</th>
+                  <th style="padding:8px 10px; text-align:left; color:var(--text3); font-weight:600; font-size:12px;">Couleur</th>
+                  <th style="padding:8px 10px; text-align:left; color:var(--text3); font-weight:600; font-size:12px;">Taille</th>
+                  <th style="padding:8px 10px; text-align:center; color:var(--text3); font-weight:600; font-size:12px;">Qté</th>
+                  <th style="padding:8px 10px; text-align:right; color:var(--text3); font-weight:600; font-size:12px;">Prix unit.</th>
+                  <th style="padding:8px 10px; text-align:right; color:var(--text3); font-weight:600; font-size:12px;">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${items.map(i => {
+                  const ar  = i.prix_ar  || i.prix || 0;
+                  const cny = i.prix_cny || 0;
+                  return `<tr style="border-top:0.5px solid var(--border);">
+                  <td style="padding:9px 12px; font-weight:600;">${i.nom}</td>
+                  <td style="padding:9px 10px; color:var(--text2);">${i.couleur||'—'}</td>
+                  <td style="padding:9px 10px; color:var(--text2);">${i.taille||'—'}</td>
+                  <td style="padding:9px 10px; text-align:center; font-weight:600;">${i.qty}</td>
+                  <td style="padding:9px 10px; text-align:right;">
+                    <span style="font-weight:600; color:var(--purple);">${cny ? cny.toFixed(2)+' ¥' : '—'}</span>
+                    ${ar ? '<br><span style="font-size:11px; color:var(--text3);">≈ '+ar.toLocaleString('fr-FR')+' Ar</span>' : ''}
+                  </td>
+                  <td style="padding:9px 10px; text-align:right; font-weight:700; color:var(--blue);">${(i.qty*ar).toLocaleString('fr-FR')} Ar</td>
+                </tr>`;}).join('')}
+                <tr style="border-top:1px solid var(--border2); background:var(--bg);">
+                  <td colspan="5" style="padding:10px 12px; font-weight:600; font-size:14px;">Total commande</td>
+                  <td style="padding:10px 10px; text-align:right; font-weight:700; font-size:15px; color:var(--blue);">${totalItems.toLocaleString('fr-FR')} Ar</td>
+                </tr>
+                <tr style="background:rgba(52,199,89,0.06);">
+                  <td colspan="4" style="padding:10px 12px; font-weight:600; font-size:14px; color:${bColor};">Bénéfice net (fonds − commande)</td>
+                  <td colspan="2" style="padding:10px 10px; text-align:right; font-weight:700; font-size:16px; color:${bColor};">${bSign}${benef.toLocaleString('fr-FR')} Ar</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- Prix suggérés par article -->
+            <div style="margin-top:18px;">
+              <div style="font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.07em; color:var(--text3); margin-bottom:10px;">Prix de vente suggérés par article (avec frais)</div>
+              ${items.map(i => {
+                const ar  = i.prix_ar || i.prix || 0;
+                const p   = getP();
+                const trans = ar * p.t;
+                const caf   = ar + trans;
+                const dou   = caf * p.d;
+                const tva   = (caf + dou) * p.v;
+                const misc  = ar * p.m;
+                const cout  = Math.round(ar + trans + dou + tva + misc);
+                const marges = [20, 50, 100, 200, 300];
+                return `
+                <div style="background:var(--white); border:0.5px solid var(--border); border-radius:12px; padding:12px 14px; margin-bottom:8px;">
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:6px;">
+                    <div>
+                      <span style="font-size:14px; font-weight:700; color:var(--text);">${i.nom}</span>
+                      ${i.taille ? `<span style="font-size:12px; color:var(--text3); margin-left:6px;">${i.taille}</span>` : ''}
+                      ${i.couleur ? `<span style="font-size:12px; color:var(--text3);">· ${i.couleur}</span>` : ''}
+                    </div>
+                    <span style="font-size:12px; color:var(--text3);">Revient : <strong style="color:var(--red);">${cout.toLocaleString('fr-FR')} Ar</strong></span>
+                  </div>
+                  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(90px,1fr)); gap:6px;">
+                    ${marges.map(m => {
+                      const prix = Math.round(cout * (1 + m/100));
+                      const gain = prix - cout;
+                      return `<div style="background:rgba(0,122,255,0.06); border:0.5px solid rgba(0,122,255,0.15); border-radius:9px; padding:8px 6px; text-align:center;">
+                        <div style="font-size:11px; font-weight:700; color:var(--blue); margin-bottom:4px;">+${m}%</div>
+                        <div style="font-size:14px; font-weight:700; color:var(--text);">${prix.toLocaleString('fr-FR')} Ar</div>
+                        <div style="font-size:11px; color:var(--green2); margin-top:3px;">+${gain.toLocaleString('fr-FR')} Ar</div>
+                      </div>`;
+                    }).join('')}
+                  </div>
+                </div>`;
+              }).join('')}
+            </div>
+
+          </div>
+        </td>
+      </tr>` : '';
+
+    return `<tr style="cursor:pointer;" onclick="toggleDetail('${c.id}')">
+      <td style="font-weight:600; font-size:16px;">${c.nom}</td>
+      <td style="font-size:16px; font-weight:600; color:var(--blue);">${(c.fond||0).toLocaleString('fr-FR')} Ar</td>
+      <td style="font-size:15px; white-space:nowrap;">${fmtDate(c.date)}</td>
+      <td style="font-size:14px; color:var(--text2);">
+        ${nbItems > 0 ? `<span style="display:inline-flex; align-items:center; gap:6px; background:rgba(0,122,255,0.08); color:var(--blue); border-radius:20px; padding:3px 10px; font-size:13px; font-weight:600;">${nbItems} article${nbItems>1?'s':''} · ${totalItems.toLocaleString('fr-FR')} Ar</span>` : '<span style="color:var(--text3);">—</span>'}
+      </td>
+      <td>
+        <span style="font-size:15px; font-weight:700; color:${bColor};">${bSign}${benef.toLocaleString('fr-FR')} Ar</span>
+        ${totalItems > 0 ? `<div style="font-size:12px; color:var(--text3); margin-top:2px;">${fond.toLocaleString('fr-FR')} − ${totalItems.toLocaleString('fr-FR')}</div>` : ''}
+      </td>
+      <td><span style="display:inline-block; font-size:13px; font-weight:600; padding:4px 12px; border-radius:20px; background:${s.bg}; color:${s.color}; white-space:nowrap;">${s.label}</span></td>
+      <td style="text-align:right;">
+        <button onclick="event.stopPropagation(); editClient('${c.id}')" style="background:none; border:none; font-size:18px; cursor:pointer; padding:4px 6px;" title="Modifier">✏️</button>
+        <button onclick="event.stopPropagation(); deleteClient('${c.id}')" style="background:none; border:none; font-size:18px; cursor:pointer; padding:4px 6px;" title="Supprimer">🗑</button>
+      </td>
+    </tr>
+    ${itemsDetail}`;
+  }).join('');
+}
+
+function toggleDetail(id) {
+  const el = document.getElementById('detail_' + id);
+  if (!el) return;
+  el.style.display = el.style.display === 'none' ? 'table-row' : 'none';
+}
+
+function updateStats() {
+  const clients = loadClients();
+  const totalFonds  = clients.reduce((s, c) => s + (c.fond || 0), 0);
+  const totalCout   = clients.reduce((s, c) => {
+    return s + (c.items||[]).reduce((si, i) => si + i.qty * (i.prix_ar || i.prix || 0), 0);
+  }, 0);
+  const totalBenef  = totalFonds - totalCout;
+  const bColor      = totalBenef >= 0 ? 'var(--green2)' : 'var(--red)';
+
+  const fmtS = n => n >= 1e6 ? (n/1e6).toFixed(2)+' M Ar' : Math.round(n).toLocaleString('fr-FR')+' Ar';
+
+  const nbEl    = document.getElementById('stat_nb');
+  const totEl   = document.getElementById('stat_total');
+  const coutEl  = document.getElementById('stat_cout');
+  const benefEl = document.getElementById('stat_benef');
+
+  if (nbEl)    nbEl.textContent    = clients.length;
+  if (totEl)   totEl.textContent   = fmtS(totalFonds);
+  if (coutEl)  coutEl.textContent  = fmtS(totalCout);
+  if (benefEl) {
+    benefEl.textContent = (totalBenef >= 0 ? '+' : '') + fmtS(totalBenef);
+    benefEl.style.color = bColor;
+  }
+}
+
+function exportCSV() {
+  const clients = loadClients();
+  if (clients.length === 0) { alert('Aucun client à exporter.'); return; }
+  const lines = [];
+  lines.push(['Client','Fonds (Ar)','Date','Statut','Notes','Article','Couleur','Taille','Qté','Prix unit. (Ar)','Total article (Ar)'].join(';'));
+  clients.forEach(c => {
+    const items = c.items || [];
+    if (items.length === 0) {
+      lines.push(['"'+c.nom+'"', c.fond||0, c.date||'', statutStyles[c.statut]?.label||c.statut, '"'+(c.notes||'')+'"','','','','','',''].join(';'));
+    } else {
+      items.forEach((i, idx) => {
+        lines.push([
+          idx===0 ? '"'+c.nom+'"' : '',
+          idx===0 ? (c.fond||0) : '',
+          idx===0 ? (c.date||'') : '',
+          idx===0 ? (statutStyles[c.statut]?.label||c.statut) : '',
+          idx===0 ? '"'+(c.notes||'')+'"' : '',
+          '"'+i.nom+'"', i.couleur||'', i.taille||'', i.qty, i.prix||0, i.qty*(i.prix||0)
+        ].join(';'));
+      });
+    }
+  });
+  const csv = lines.join('\n');
+  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'clients_import.csv'; a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ── INIT ── (géré par DOMContentLoaded en bas)
+
+// Drag-to-scroll sur le tableau articles
+(function() {
+  function initDragScroll(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    let isDown = false, startX, scrollLeft;
+    el.addEventListener('mousedown', e => {
+      isDown = true;
+      el.style.cursor = 'grabbing';
+      startX = e.pageX - el.offsetLeft;
+      scrollLeft = el.scrollLeft;
+    });
+    el.addEventListener('mouseleave', () => { isDown = false; el.style.cursor = 'grab'; });
+    el.addEventListener('mouseup',    () => { isDown = false; el.style.cursor = 'grab'; });
+    el.addEventListener('mousemove',  e => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x    = e.pageX - el.offsetLeft;
+      const walk = (x - startX) * 1.2;
+      el.scrollLeft = scrollLeft - walk;
+    });
+    // Touch support
+    let touchStartX, touchScrollLeft;
+    el.addEventListener('touchstart', e => {
+      touchStartX    = e.touches[0].pageX;
+      touchScrollLeft= el.scrollLeft;
+    }, { passive: true });
+    el.addEventListener('touchmove', e => {
+      const dx = touchStartX - e.touches[0].pageX;
+      el.scrollLeft = touchScrollLeft + dx;
+    }, { passive: true });
+  }
+  initDragScroll('items_scroll_wrap');
+})();
+
+const sliderDefs = [
+  {id:'transport', out:'v_transport'},
+  {id:'douane',    out:'v_douane'},
+  {id:'tva',       out:'v_tva'},
+  {id:'misc',      out:'v_misc'},
+  {id:'marge',     out:'v_marge'},
+];
+sliderDefs.forEach(s => {
+  document.getElementById(s.id).addEventListener('input', function() {
+    document.getElementById(s.out).textContent = this.value + '%';
+    calc(); calcUnit();
+  });
+});
+['fond','cny_ar'].forEach(id => document.getElementById(id).addEventListener('input', () => { calc(); calcGuide(); updateUnitCNY(); }));
+['unit_achat','unit_qty'].forEach(id => document.getElementById(id).addEventListener('input', calcUnit));
+
+function fmt(n) {
+  if (n >= 1e9) return (n/1e9).toFixed(2) + ' Mrd Ar';
+  if (n >= 1e6) return (n/1e6).toFixed(2) + ' M Ar';
+  return Math.round(n).toLocaleString('fr-FR') + ' Ar';
+}
+function fmtAr(n) { return Math.round(n).toLocaleString('fr-FR') + ' Ar'; }
+
+function getP() {
+  const inc = id => document.getElementById(id)?.checked !== false;
+  return {
+    fond:   parseFloat(document.getElementById('fond').value)   || 0,
+    cny_ar: parseFloat(document.getElementById('cny_ar').value) || 635,
+    t:  inc('inc_transport') ? parseInt(document.getElementById('transport').value) / 100 : 0,
+    d:  inc('inc_douane')    ? parseInt(document.getElementById('douane').value)    / 100 : 0,
+    v:  inc('inc_tva')       ? parseInt(document.getElementById('tva').value)       / 100 : 0,
+    m:  inc('inc_misc')      ? parseInt(document.getElementById('misc').value)      / 100 : 0,
+    mg: parseInt(document.getElementById('marge').value) / 100,
+  };
+}
+
+function calc() {
+  const p = getP();
+  const cap_cny = p.fond / p.cny_ar;
+  const achat = p.fond;
+  const trans = achat * p.t;
+  const caf   = achat + trans;
+  const dou   = caf * p.d;
+  const tva   = (caf + dou) * p.v;
+  const misc  = achat * p.m;
+  const cout  = achat + trans + dou + tva + misc;
+  const vente = cout * (1 + p.mg);
+  const benef = vente - cout;
+
+  document.getElementById('r_cny').textContent   = Math.round(cap_cny).toLocaleString('fr-FR') + ' ¥';
+  document.getElementById('r_cout').textContent  = fmt(cout);
+  document.getElementById('r_vente').textContent = fmt(vente);
+  document.getElementById('r_benef').textContent = fmt(benef);
+  document.getElementById('r_vente2').textContent= fmt(vente);
+
+  const rows = [
+    {name:'Achat marchandises',   val:achat, dot:'#8e8e93', badge:null},
+    {name:'Transport maritime',   val:trans, dot:'#007aff', badge:null},
+    {name:'Droits de douane',     val:dou,   dot:'#ff9500', badge:'tax'},
+    {name:'TVA à l\'importation', val:tva,   dot:'#ff9500', badge:'tax'},
+    {name:'Divers & imprévus',    val:misc,  dot:'#8e8e93', badge:null},
+    {name:'Bénéfice net',         val:benef, dot:'#34c759', badge:'profit'},
+  ];
+  document.getElementById('breakdown').innerHTML = rows.map(r => `
+    <div class="bk-row">
+      <div class="bk-left">
+        <span class="bk-dot" style="background:${r.dot}"></span>
+        ${r.name}
+        ${r.badge ? `<span class="bk-badge ${r.badge}">${r.badge==='tax'?'taxe':'bénéfice'}</span>` : ''}
+      </div>
+      <span class="bk-val">${fmt(r.val)}</span>
+    </div>`).join('');
+}
+
+function calcUnit() {
+  const p = getP();
+  const achat = parseFloat(document.getElementById('unit_achat').value) || 0;
+  const qty   = parseInt(document.getElementById('unit_qty').value)     || 1;
+
+  const trans = achat * p.t;
+  const caf   = achat + trans;
+  const dou   = caf * p.d;
+  const tva   = (caf + dou) * p.v;
+  const misc  = achat * p.m;
+  const cout  = achat + trans + dou + tva + misc;
+  const vente = cout * (1 + p.mg);
+  const benef = vente - cout;
+  const benefTotal = benef * qty;
+
+  const bColor = benef >= 0 ? 'var(--green2)' : 'var(--red)';
+  const bBg    = benef >= 0 ? 'rgba(52,199,89,0.08)'  : 'rgba(255,59,48,0.06)';
+  const bBord  = benef >= 0 ? 'rgba(52,199,89,0.3)'   : 'rgba(255,59,48,0.25)';
+  const bLabel = benef >= 0 ? `Avec ta marge de ${Math.round(p.mg*100)}% — pour ${qty} article(s)` : `⚠️ Perte — augmente le prix ou réduis les frais`;
+
+  document.getElementById('unit_results').innerHTML = `
+    <div style="background:var(--bg); border:0.5px solid var(--border); border-radius:16px; padding:20px 22px; margin-top:20px; margin-bottom:16px;">
+      <div style="font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--text3); margin-bottom:16px;">Coût de revient réel</div>
+      <div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:0.5px solid var(--border); font-size:clamp(14px,3.5vw,17px);">
+        <span style="color:var(--text2);">Prix d'achat</span>
+        <span style="font-weight:600;">${fmtAr(achat)}</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:0.5px solid var(--border); font-size:clamp(13px,3.2vw,17px);">
+        <span style="color:var(--text2);">+ Frais inclus (douane, TVA, transport)</span>
+        <span style="font-weight:600; color:${cout - achat > 0 ? 'var(--red)' : 'var(--text3)'}; white-space:nowrap; margin-left:8px;">${cout - achat > 0 ? '+ ' : ''}${fmtAr(cout - achat)}</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center; padding-top:14px; font-size:clamp(14px,3.5vw,17px);">
+        <span style="font-weight:600;">Revient réel par article</span>
+        <span style="font-size:clamp(20px,5vw,28px); font-weight:700; color:var(--blue); white-space:nowrap; margin-left:8px;">${fmtAr(cout)}</span>
+      </div>
+    </div>
+
+    <div style="font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--text3); margin-bottom:12px;">Scénarios de prix de vente</div>
+    <div class="mult-grid">
+      ${[1.5,2,3,4,5].map(x => {
+        const prix  = cout * x;
+        const gain  = prix - cout;
+        const hl    = Math.abs(x - (1 + p.mg)) < 0.26;
+        const isPos = gain >= 0;
+        return `<div class="mult-tile ${hl?'hl':''}">
+          <div class="mult-x">× ${x}${hl?' ✓':''}</div>
+          <div class="mult-prix" style="${hl ? '' : 'color:var(--text)'}">${fmtAr(prix)}</div>
+          <div class="mult-ben" style="color:${isPos ? 'var(--green2)' : 'var(--red)'};">${isPos ? '+' : ''}${fmtAr(gain)}</div>
+        </div>`;
+      }).join('')}
+    </div>
+
+    <div style="background:${bBg}; border:0.5px solid ${bBord}; border-radius:16px; padding:20px 22px;">
+      <div style="font-size:15px; font-weight:600; color:${bColor}; margin-bottom:14px;">${bLabel}</div>
+      <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; font-size:clamp(14px,3.5vw,17px);">
+        <span style="color:var(--text2);">Prix de vente suggéré</span>
+        <span style="font-size:clamp(18px,5vw,26px); font-weight:700; color:var(--text); white-space:nowrap; margin-left:8px;">${fmtAr(vente)}</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; font-size:clamp(14px,3.5vw,17px); border-top:0.5px solid ${bBord}; margin-top:6px;">
+        <span style="color:var(--text2);">Bénéfice total (${qty} pcs)</span>
+        <span style="font-size:clamp(18px,5vw,26px); font-weight:700; color:${bColor}; white-space:nowrap; margin-left:8px;">${benefTotal >= 0 ? '+' : ''}${fmtAr(benefTotal)}</span>
+      </div>
+    </div>`;
+}
+
+/* ── GUIDE INTERACTIF ── */
+function calcGuide() {
+  const cny   = parseFloat(document.getElementById('g_cny')?.value)   || 0;
+  const vente = parseFloat(document.getElementById('g_vente')?.value) || 0;
+  const rate  = parseFloat(document.getElementById('cny_ar')?.value)  || 635;
+
+  const p = getP();
+  const achat = Math.round(cny * rate);
+
+  // Mise à jour preview conversion
+  const previewEl = document.getElementById('g_cny_ar');
+  if (previewEl) previewEl.textContent = achat.toLocaleString('fr-FR') + ' Ar';
+  const trans = Math.round(achat * p.t);
+  const caf   = achat + trans;
+  const dou   = Math.round(caf * p.d);
+  const tva   = Math.round((caf + dou) * p.v);
+  const misc  = Math.round(achat * p.m);
+  const cout  = achat + trans + dou + tva + misc;
+  const benef = vente - cout;
+  const isPos = benef >= 0;
+  const bColor= isPos ? 'var(--green2)' : 'var(--red)';
+  const ar    = n => Math.round(n).toLocaleString('fr-FR') + ' Ar';
+
+  const steps = [
+    { num:'1', color:'var(--blue)',    bg:'rgba(0,122,255,0.08)',    label:'Prix d\'achat en Chine',   desc:'Ce que tu paies au fournisseur.',                        val:`${cny} ¥ = ${ar(achat)}` },
+    { num:'2', color:'var(--purple)',  bg:'rgba(88,86,214,0.08)',    label:`Transport maritime (${Math.round(p.t*100)}%)`, desc:`Fret LCL Chine → Toamasina. Valeur CAF = ${ar(caf)}`,  val:`${ar(achat)} × ${Math.round(p.t*100)}% = + ${ar(trans)}` },
+    { num:'3', color:'var(--orange)',  bg:'rgba(255,149,0,0.08)',    label:`Droits de douane (${Math.round(p.d*100)}%)`,  desc:`Calculés sur la valeur CAF (${ar(caf)}).`,              val:`${ar(caf)} × ${Math.round(p.d*100)}% = + ${ar(dou)}` },
+    { num:'4', color:'var(--orange)',  bg:'rgba(255,149,0,0.08)',    label:`TVA Madagascar (${Math.round(p.v*100)}%)`,    desc:`Sur CAF + douane (${ar(caf+dou)}).`,                    val:`${ar(caf+dou)} × ${Math.round(p.v*100)}% = + ${ar(tva)}` },
+    { num:'5', color:'var(--text3)',   bg:'var(--bg)',               label:`Divers & imprévus (${Math.round(p.m*100)}%)`,desc:'Stockage, manutention, transitaire.',                   val:`${ar(achat)} × ${Math.round(p.m*100)}% = + ${ar(misc)}` },
+  ];
+
+  document.getElementById('g_steps').innerHTML = steps.map((s, i) => `
+    <div style="display:flex; gap:14px; align-items:flex-start; padding:14px 0; border-bottom:0.5px solid var(--border);">
+      <div style="width:30px; height:30px; border-radius:50%; background:${s.color}; color:#fff; font-size:14px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0;">${s.num}</div>
+      <div style="flex:1;">
+        <div style="font-size:15px; font-weight:600; color:var(--text); margin-bottom:3px;">${s.label}</div>
+        <div style="font-size:13px; color:var(--text3); margin-bottom:6px;">${s.desc}</div>
+        <div style="background:${s.bg}; border-radius:9px; padding:9px 13px; font-size:14px; font-weight:600; color:${s.color};">${s.val}</div>
+      </div>
+    </div>`).join('') + `
+    <div style="display:flex; gap:14px; align-items:flex-start; padding:14px 0;">
+      <div style="width:30px; height:30px; border-radius:50%; background:var(--blue); color:#fff; font-size:14px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0;">✓</div>
+      <div style="flex:1;">
+        <div style="font-size:15px; font-weight:600; color:var(--text); margin-bottom:6px;">Coût de revient total</div>
+        <div style="background:rgba(0,122,255,0.08); border:1px solid rgba(0,122,255,0.2); border-radius:10px; padding:14px 16px; display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:14px; font-weight:500; color:var(--text2);">${ar(achat)} + frais</span>
+          <span style="font-size:26px; font-weight:700; color:var(--blue);">${ar(cout)}</span>
+        </div>
+      </div>
+    </div>`;
+
+  const equilibre = cout;
+  document.getElementById('g_result').innerHTML = `
+    <div style="background:${isPos ? 'rgba(52,199,89,0.08)' : 'rgba(255,59,48,0.07)'}; border:1.5px solid ${isPos ? 'rgba(52,199,89,0.35)' : 'rgba(255,59,48,0.3)'}; border-radius:16px; padding:18px 20px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+        <div>
+          <div style="font-size:13px; color:var(--text3); margin-bottom:4px;">Vendre à ${ar(vente)} →</div>
+          <div style="font-size:13px; color:var(--text3);">Revient : ${ar(cout)}</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:13px; color:${bColor}; font-weight:600; margin-bottom:2px;">${isPos ? '✅ Bénéfice' : '❌ Perte'}</div>
+          <div style="font-size:32px; font-weight:700; color:${bColor};">${isPos ? '+' : ''}${ar(benef)}</div>
+        </div>
+      </div>
+      ${!isPos ? `<div style="margin-top:12px; padding-top:12px; border-top:0.5px solid rgba(255,59,48,0.2); font-size:14px; color:var(--text2);">Prix minimum pour ne pas perdre d'argent : <strong style="color:var(--text);">${ar(equilibre + 1)}</strong></div>` : `<div style="margin-top:12px; padding-top:12px; border-top:0.5px solid rgba(52,199,89,0.2); font-size:14px; color:var(--text2);">Marge réelle : <strong style="color:var(--green2);">${Math.round(benef/cout*100)}%</strong> sur le coût de revient</div>`}
+    </div>`;
+
+  const multiples = [1.2, 1.5, 2, 3, 4];
+  document.getElementById('g_scenarios').innerHTML = multiples.map(x => {
+    const p2   = Math.round(cout * x);
+    const b2   = p2 - cout;
+    const isP2 = b2 >= 0;
+    return `<div style="background:var(--bg); border:0.5px solid var(--border); border-radius:12px; padding:12px 10px; text-align:center; cursor:pointer; transition:all 0.15s;" onclick="document.getElementById('g_vente').value=${p2}; calcGuide();" onmouseover="this.style.borderColor='var(--blue)'" onmouseout="this.style.borderColor='var(--border)'">
+      <div style="font-size:12px; color:var(--text3); margin-bottom:5px;">× ${x}</div>
+      <div style="font-size:15px; font-weight:700; color:var(--text);">${ar(p2)}</div>
+      <div style="font-size:12px; font-weight:600; color:${isP2 ? 'var(--green2)' : 'var(--red)'}; margin-top:4px;">${isP2?'+':''}${ar(b2)}</div>
+    </div>`;
+  }).join('');
+}
+
+async function fetchRate() {
+  const badge  = document.getElementById('rate_badge');
+  const detail = document.getElementById('rate_detail');
+  const status = document.getElementById('rate_status');
+  const input  = document.getElementById('cny_ar');
+
+  badge.textContent  = '⏳ Chargement…';
+  badge.style.background = 'rgba(142,142,147,0.15)';
+  badge.style.color  = 'var(--text3)';
+  status.textContent = '…';
+
+  try {
+    // Frankfurter: CNY → USD, puis USD → MGA via ExchangeRate-API (no key needed)
+    // On utilise exchangerate.host pour CNY→MGA directement
+    const res = await fetch('https://api.frankfurter.app/latest?from=CNY&to=USD');
+    if (!res.ok) throw new Error('API non disponible');
+    const data = await res.json();
+    const cny_usd = data.rates.USD; // 1 CNY = x USD
+
+    // USD → MGA via exchangerate-api (free, no key)
+    const res2 = await fetch('https://open.er-api.com/v6/latest/USD');
+    if (!res2.ok) throw new Error('MGA non disponible');
+    const data2 = await res2.json();
+    const usd_mga = data2.rates.MGA; // 1 USD = x MGA
+
+    const cny_mga = Math.round(cny_usd * usd_mga);
+
+    input.value = cny_mga;
+    calc(); calcUnit();
+
+    const now = new Date().toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'});
+    badge.textContent  = '🟢 En direct';
+    badge.style.background = 'rgba(52,199,89,0.12)';
+    badge.style.color  = 'var(--green2)';
+    detail.textContent = `1 CNY = ${cny_mga} Ar · mis à jour ${now}`;
+    status.textContent = '';
+
+    localStorage.setItem('importcalc_rate', JSON.stringify({ cny_mga, ts: Date.now() }));
+
+  } catch(e) {
+    // Essai avec taux mis en cache
+    const cached = JSON.parse(localStorage.getItem('importcalc_rate') || 'null');
+    if (cached) {
+      input.value = cached.cny_mga;
+      calc(); calcUnit();
+      const ago = Math.round((Date.now() - cached.ts) / 60000);
+      badge.textContent  = '🟡 Cache';
+      badge.style.background = 'rgba(255,149,0,0.12)';
+      badge.style.color  = 'var(--orange)';
+      detail.textContent = `1 CNY = ${cached.cny_mga} Ar · il y a ${ago} min`;
+    } else {
+      badge.textContent  = '🔴 Hors ligne';
+      badge.style.background = 'rgba(255,59,48,0.10)';
+      badge.style.color  = 'var(--red)';
+      detail.textContent = 'Taux manuel — pas de connexion';
+    }
+    status.textContent = '';
+  }
+}
+
+// Appel au chargement - après que toutes les fonctions sont définies
+window.addEventListener('DOMContentLoaded', function() {
+  renderTable();
+  updateStats();
+  calc();
+  calcUnit();
+  calcGuide();
+  updateUnitCNY();
+  fetchRate();
+});
+</script>
+</body>
+</html>
