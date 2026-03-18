@@ -28,3 +28,7 @@ Just open the link — no installation needed.
 ## Live
 
 [aokivenom.github.io/importcalc](https://aokivenom.github.io/importcalc)
+
+## Update
+
+- Update v0.1 - 18/03/26
