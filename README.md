@@ -29,7 +29,6 @@ Just open the link — no installation needed.
 
 [aokivenom.github.io/importcalc](https://aokivenom.github.io/importcalc)
 
-## Update
 
 ## Updates
 
