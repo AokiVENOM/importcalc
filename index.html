@@ -472,6 +472,16 @@ tbody td:nth-child(2){ color: var(--text2); }
 .info-box li::before { content:'→'; position:absolute; left:0; color:var(--blue); }
 
 /* RESPONSIVE — mobile first */
+@media (min-width: 769px) {
+  .email-desktop { display: inline !important; }
+  .btn-icon-mobile { display: none; }
+  .btn-text-desktop { display: inline; }
+}
+@media (max-width: 768px) {
+  .btn-icon-mobile { display: inline; }
+  .btn-text-desktop { display: none; }
+}
+
 @media (max-width: 480px) {
   /* Base */
   body { font-size: 15px; }
@@ -566,6 +576,72 @@ tbody td:nth-child(2){ color: var(--text2); }
 </head>
 <body>
 
+<!-- ═══ ÉCRAN LOGIN ═══ -->
+<div id="login_screen" style="display:flex; align-items:center; justify-content:center; min-height:100vh; background:var(--bg); padding:20px;">
+  <!-- Toggle thème sur la page login -->
+  <button onclick="toggleTheme()" style="position:fixed; top:16px; right:16px; background:var(--white); border:1px solid var(--border2); border-radius:100px; padding:8px 16px; font-size:14px; font-family:inherit; color:var(--text2); cursor:pointer; display:flex; align-items:center; gap:6px; box-shadow:0 2px 10px rgba(0,0,0,0.10);">
+    <span id="login_theme_icon">🌙</span> <span id="login_theme_label">Dark</span>
+  </button>
+  <div style="background:var(--white); border-radius:24px; border:0.5px solid var(--border); padding:40px 36px; width:100%; max-width:400px; box-shadow:0 8px 40px rgba(0,0,0,0.10);">
+    <div style="text-align:center; margin-bottom:32px;">
+      <div style="font-size:40px; margin-bottom:12px;">📦</div>
+      <div style="font-size:26px; font-weight:700; color:var(--text); letter-spacing:-0.02em;">ImportCalc</div>
+      <div style="font-size:15px; color:var(--text3); margin-top:6px;">Chine → Madagascar</div>
+    </div>
+    <div class="field">
+      <label>Email</label>
+      <input type="email" id="login_email" placeholder="ton@email.com" onkeydown="if(event.key==='Enter')doLogin()" style="font-size:17px; padding:14px 16px; border-radius:12px; border:1px solid var(--border2); background:var(--bg); color:var(--text); width:100%; font-family:inherit;" />
+    </div>
+    <div class="field">
+      <label>Mot de passe</label>
+      <input type="password" id="login_pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()" style="font-size:17px; padding:14px 16px; border-radius:12px; border:1px solid var(--border2); background:var(--bg); color:var(--text); width:100%; font-family:inherit;" />
+    </div>
+    <div id="login_err" style="color:var(--red); font-size:14px; min-height:20px; margin-bottom:8px;"></div>
+    <button onclick="doLogin()" style="width:100%; background:var(--blue); color:#fff; border:none; border-radius:12px; padding:15px; font-size:17px; font-weight:600; font-family:inherit; cursor:pointer; margin-bottom:10px;" onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
+      Se connecter
+    </button>
+    <button onclick="doRegister()" style="width:100%; background:transparent; color:var(--blue); border:1.5px solid var(--blue); border-radius:12px; padding:14px; font-size:16px; font-weight:600; font-family:inherit; cursor:pointer; margin-bottom:10px;" onmouseover="this.style.opacity='.75'" onmouseout="this.style.opacity='1'">
+      Créer un compte
+    </button>
+    <button onclick="doResetPassword()" style="width:100%; background:transparent; color:var(--text3); border:none; padding:10px; font-size:14px; font-family:inherit; cursor:pointer; text-decoration:underline;">
+      Mot de passe oublié ?
+    </button>
+    <div style="text-align:center; margin-top:20px; font-size:13px; color:var(--text3);">© 2026 Toky RAMANITRA</div>
+  </div>
+</div>
+
+<!-- ═══ ÉCRAN GROUPE ═══ -->
+<div id="group_screen" style="display:none; align-items:center; justify-content:center; min-height:100vh; background:var(--bg); padding:20px;">
+  <div style="background:var(--white); border-radius:24px; border:0.5px solid var(--border); padding:40px 36px; width:100%; max-width:420px; box-shadow:0 8px 40px rgba(0,0,0,0.10);">
+    <div style="text-align:center; margin-bottom:28px;">
+      <div style="font-size:36px; margin-bottom:10px;">👥</div>
+      <div style="font-size:22px; font-weight:700; color:var(--text);">Groupe de travail</div>
+      <div style="font-size:14px; color:var(--text3); margin-top:6px;">Crée ou rejoins un groupe pour partager les clients</div>
+    </div>
+
+    <!-- Créer un groupe -->
+    <div style="background:rgba(0,122,255,0.06); border:1px solid rgba(0,122,255,0.2); border-radius:16px; padding:20px; margin-bottom:16px;">
+      <div style="font-size:14px; font-weight:700; color:var(--blue); margin-bottom:12px; text-transform:uppercase; letter-spacing:0.06em;">✨ Créer un groupe</div>
+      <input type="text" id="group_name_input" placeholder="ex: ImportToky2026" onkeydown="if(event.key==='Enter')createGroup()" style="width:100%; font-size:16px; padding:12px 14px; border-radius:10px; border:1px solid var(--border2); background:var(--bg); color:var(--text); font-family:inherit; margin-bottom:10px;" />
+      <button onclick="createGroup()" style="width:100%; background:var(--blue); color:#fff; border:none; border-radius:10px; padding:12px; font-size:15px; font-weight:600; font-family:inherit; cursor:pointer;">Créer et obtenir le code</button>
+    </div>
+
+    <!-- Rejoindre un groupe -->
+    <div style="background:rgba(52,199,89,0.06); border:1px solid rgba(52,199,89,0.2); border-radius:16px; padding:20px;">
+      <div style="font-size:14px; font-weight:700; color:var(--green2); margin-bottom:12px; text-transform:uppercase; letter-spacing:0.06em;">🔗 Rejoindre un groupe</div>
+      <input type="text" id="group_code_input" placeholder="ex: IMPORTTOKY123" onkeydown="if(event.key==='Enter')joinGroup()" style="width:100%; font-size:16px; padding:12px 14px; border-radius:10px; border:1px solid var(--border2); background:var(--bg); color:var(--text); font-family:inherit; margin-bottom:10px;" />
+      <button onclick="joinGroup()" style="width:100%; background:var(--green2); color:#fff; border:none; border-radius:10px; padding:12px; font-size:15px; font-weight:600; font-family:inherit; cursor:pointer;">Rejoindre</button>
+    </div>
+
+    <div id="group_err" style="color:var(--red); font-size:14px; min-height:20px; margin-top:12px; text-align:center;"></div>
+
+    <button onclick="doLogout()" style="width:100%; background:transparent; color:var(--text3); border:none; padding:10px; font-size:14px; font-family:inherit; cursor:pointer; margin-top:8px; text-decoration:underline;">Se déconnecter</button>
+  </div>
+</div>
+
+<!-- ═══ APP ═══ -->
+<div id="app_screen" style="display:none;">
+
 <nav>
   <div class="nav-inner">
     <button class="nav-btn active" onclick="showPage('calc')">Simulateur</button>
@@ -574,6 +650,18 @@ tbody td:nth-child(2){ color: var(--text2); }
     <button class="nav-btn" onclick="showPage('guide')">Guide</button>
   </div>
 </nav>
+<!-- Barre utilisateur -->
+<div style="background:var(--white); border-bottom:0.5px solid var(--border); padding:4px 10px; display:flex; justify-content:space-between; align-items:center; gap:4px;">
+  <div style="display:flex; align-items:center; gap:5px; min-width:0;">
+    <span id="nav_group_name" style="font-size:12px; font-weight:700; color:var(--blue); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:130px;"></span>
+    <span id="nav_members_count" style="font-size:11px; font-weight:600; background:rgba(52,199,89,0.15); color:var(--green2); border-radius:20px; padding:2px 7px; white-space:nowrap; display:none; flex-shrink:0;"></span>
+  </div>
+  <div style="display:flex; align-items:center; gap:4px; flex-shrink:0;">
+    <span id="user_email" class="email-desktop" style="font-size:11px; color:var(--text3); white-space:nowrap; max-width:150px; overflow:hidden; text-overflow:ellipsis; display:none;"></span>
+    <button onclick="leaveGroup()" title="Changer de groupe" style="font-size:12px; font-weight:600; padding:5px 10px; border-radius:20px; border:1px solid rgba(255,149,0,0.35); background:transparent; color:var(--orange); cursor:pointer; font-family:inherit; white-space:nowrap;"><span class="btn-text-desktop">⇄ Groupe</span><span class="btn-icon-mobile">⇄</span></button>
+    <button onclick="doLogout()" title="Déconnexion" style="font-size:12px; font-weight:600; padding:5px 10px; border-radius:20px; border:1px solid rgba(255,59,48,0.35); background:transparent; color:var(--red); cursor:pointer; font-family:inherit; white-space:nowrap;"><span class="btn-text-desktop">⏻ Déco</span><span class="btn-icon-mobile">⏻</span></button>
+  </div>
+</div>
 
 <!-- Bouton flottant dark/light -->
 <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">
@@ -584,7 +672,7 @@ tbody td:nth-child(2){ color: var(--text2); }
 <div id="page-calc" class="page active">
 
   <div class="hero">
-    <div class="hero-tag">Outil de simulation</div>
+    <div class="hero-tag">👋 Bonjour, <span id="hero_user_email">—</span></div>
     <h1>Import<span>Calc</span></h1>
     <p>Calcule ton coût de revient, tes frais douaniers et ton bénéfice net.</p>
     <div class="badge">
@@ -1409,13 +1497,16 @@ tbody td:nth-child(2){ color: var(--text2); }
   <footer>ImportCalc v0.4 · Chine → Madagascar · © 2026 Toky RAMANITRA</footer>
 </div>
 
+</div><!-- fin app_screen -->
+
 <!-- Firebase SDK -->
 <!-- SheetJS pour export Excel -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-import { getFirestore, collection, onSnapshot, doc, setDoc, deleteDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+import { getFirestore, collection, onSnapshot, doc, setDoc, deleteDoc, getDoc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBxyy_jR_AMZ_0utb2eEyfi_YH8SNRXa9g",
@@ -1427,68 +1518,248 @@ const firebaseConfig = {
   measurementId: "G-Q2ENDWL65D"
 };
 
-const app = initializeApp(firebaseConfig);
-const db  = getFirestore(app);
-const COLLECTION = 'clients';
+const app  = initializeApp(firebaseConfig);
+const db   = getFirestore(app);
+const auth = getAuth(app);
+
+let currentUserId  = null;
+let currentGroupId = null;
+let unsubscribeSnapshot = null;
 
 // ── Sync indicator ──
 function setSyncStatus(status) {
   const el = document.getElementById('sync_status');
   if (!el) return;
   const states = {
-    ok:      { text: '🟢 Synchronisé',    color: 'var(--green2)' },
+    ok:      { text: '🟢 Synchronisé',      color: 'var(--green2)' },
     syncing: { text: '🔄 Synchronisation…', color: 'var(--orange)' },
-    error:   { text: '🔴 Erreur sync',     color: 'var(--red)' },
-    offline: { text: '🟡 Hors ligne',      color: 'var(--orange)' },
+    error:   { text: '🔴 Erreur sync',      color: 'var(--red)' },
+    offline: { text: '🟡 Hors ligne',       color: 'var(--orange)' },
   };
   const s = states[status] || states.ok;
   el.textContent = s.text;
   el.style.color = s.color;
 }
 
-// ── Save client to Firestore ──
+// ── Listener Firestore groupe ──
+function startListener(groupId) {
+  if (unsubscribeSnapshot) unsubscribeSnapshot();
+  const col = collection(db, 'groups', groupId, 'clients');
+  unsubscribeSnapshot = onSnapshot(col, (snapshot) => {
+    try {
+      const clients = [];
+      snapshot.forEach(d => clients.push(d.data()));
+      clients.sort((a, b) => (a.createdAt || '').localeCompare(b.createdAt || ''));
+      localStorage.setItem('importcalc_clients', JSON.stringify(clients));
+      if (typeof renderTable === 'function') renderTable();
+      if (typeof updateStats === 'function') updateStats();
+      setSyncStatus('ok');
+    } catch(e) { setSyncStatus('error'); }
+  }, () => setSyncStatus('offline'));
+}
+
+// ── Save client ──
 window.saveClientToCloud = async function(client) {
+  if (!currentGroupId) return;
   try {
     setSyncStatus('syncing');
-    await setDoc(doc(db, COLLECTION, client.id), client);
+    await setDoc(doc(db, 'groups', currentGroupId, 'clients', client.id), client);
     setSyncStatus('ok');
-  } catch(e) {
-    console.error('Firestore save error:', e);
-    setSyncStatus('error');
-  }
+  } catch(e) { setSyncStatus('error'); }
 };
 
-// ── Delete client from Firestore ──
+// ── Delete client ──
 window.deleteClientFromCloud = async function(id) {
-  try {
-    await deleteDoc(doc(db, COLLECTION, id));
-  } catch(e) {
-    console.error('Firestore delete error:', e);
-  }
+  if (!currentGroupId) return;
+  try { await deleteDoc(doc(db, 'groups', currentGroupId, 'clients', id)); }
+  catch(e) { console.error(e); }
 };
 
-// ── Real-time listener — sync between devices ──
-onSnapshot(collection(db, COLLECTION), (snapshot) => {
+// ── Créer un groupe ──
+window.createGroup = async function() {
+  const name = document.getElementById('group_name_input').value.trim();
+  const err  = document.getElementById('group_err');
+  if (!name) { err.style.color = 'var(--red)'; err.textContent = 'Entre un nom de groupe.'; return; }
+  const code = name.toUpperCase().replace(/\s+/g, '');
   try {
-    const clients = [];
-    snapshot.forEach(d => clients.push(d.data()));
-    // Sort by creation date
-    clients.sort((a, b) => (a.createdAt || '').localeCompare(b.createdAt || ''));
-    // Save to localStorage as cache
-    localStorage.setItem('importcalc_clients', JSON.stringify(clients));
-    // Re-render
-    if (typeof renderTable === 'function') renderTable();
-    if (typeof updateStats === 'function') updateStats();
-    setSyncStatus('ok');
-  } catch(e) {
-    setSyncStatus('error');
+    await setDoc(doc(db, 'groups', code), {
+      name, code,
+      createdBy: currentUserId,
+      members: [currentUserId],
+      createdAt: new Date().toISOString()
+    });
+    await setDoc(doc(db, 'users', currentUserId), { groupId: code, groupName: name }, { merge: true });
+    err.style.color = 'var(--green2)';
+    err.textContent = '✅ Groupe créé ! Code : ' + code;
+    setTimeout(() => enterGroup(code, name), 1500);
+  } catch(e) { err.style.color = 'var(--red)'; err.textContent = 'Erreur : ' + e.message; }
+};
+
+// ── Rejoindre un groupe ──
+window.joinGroup = async function() {
+  const code = document.getElementById('group_code_input').value.trim().toUpperCase().replace(/\s+/g,'');
+  const err  = document.getElementById('group_err');
+  if (!code) { err.style.color = 'var(--red)'; err.textContent = 'Entre un code de groupe.'; return; }
+  try {
+    const groupDoc = await getDoc(doc(db, 'groups', code));
+    if (!groupDoc.exists()) { err.style.color = 'var(--red)'; err.textContent = 'Groupe introuvable. Vérifie le code.'; return; }
+    const groupData = groupDoc.data();
+    await updateDoc(doc(db, 'groups', code), { members: arrayUnion(currentUserId) });
+    await setDoc(doc(db, 'users', currentUserId), { groupId: code, groupName: groupData.name }, { merge: true });
+    enterGroup(code, groupData.name);
+  } catch(e) { err.style.color = 'var(--red)'; err.textContent = 'Erreur : ' + e.message; }
+};
+
+// ── Entrer dans le groupe ──
+function getGreeting() {
+  const h = new Date().getHours();
+  if (h >= 5  && h < 12) return 'Bonjour';
+  if (h >= 12 && h < 14) return 'Bon appétit 🍽️';
+  if (h >= 14 && h < 18) return 'Bonne après-midi';
+  if (h >= 18 && h < 21) return 'Bonsoir';
+  return 'Bonne nuit 🌙';
+}
+
+function enterGroup(groupId, groupName) {
+  currentGroupId = groupId;
+  const groupScreen = document.getElementById('group_screen');
+  const appScreen   = document.getElementById('app_screen');
+  const groupLabel  = document.getElementById('nav_group_name');
+  const heroUser    = document.getElementById('hero_user_email');
+  if (groupScreen) groupScreen.style.display = 'none';
+  if (appScreen)   appScreen.style.display   = 'block';
+  if (groupLabel)  groupLabel.textContent     = '👥 ' + groupName;
+  if (heroUser && auth.currentUser) {
+    const greeting = getGreeting();
+    heroUser.textContent = auth.currentUser.email;
+    const tag = document.querySelector('.hero-tag');
+    if (tag) tag.innerHTML = greeting + ', <span id="hero_user_email">' + auth.currentUser.email + '</span> 👋';
   }
-}, (error) => {
-  console.error('Firestore listener error:', error);
-  setSyncStatus('offline');
+
+  // ── Présence : marquer en ligne ──
+  const presenceRef = doc(db, 'groups', groupId, 'presence', currentUserId);
+  setDoc(presenceRef, { uid: currentUserId, email: auth.currentUser?.email, online: true, lastSeen: new Date().toISOString() });
+
+  // ── Écouter membres en ligne ──
+  onSnapshot(collection(db, 'groups', groupId, 'presence'), (snap) => {
+    const online = snap.docs.filter(d => d.data().online).length;
+    const badge  = document.getElementById('nav_members_count');
+    if (badge) {
+      badge.style.display = 'inline';
+      badge.textContent   = '● ' + online;
+    }
+  });
+
+  // ── Marquer offline à la fermeture ──
+  window.addEventListener('beforeunload', () => {
+    setDoc(presenceRef, { online: false, lastSeen: new Date().toISOString() }, { merge: true });
+  });
+
+  startListener(groupId);
+}
+
+// ── Quitter le groupe ──
+window.leaveGroup = async function() {
+  if (!confirm('Quitter le groupe ?')) return;
+  if (currentGroupId && currentUserId) {
+    await setDoc(doc(db, 'groups', currentGroupId, 'presence', currentUserId), { online: false, lastSeen: new Date().toISOString() }, { merge: true });
+  }
+  await setDoc(doc(db, 'users', currentUserId), { groupId: null, groupName: null }, { merge: true });
+  currentGroupId = null;
+  localStorage.removeItem('importcalc_clients');
+  if (unsubscribeSnapshot) unsubscribeSnapshot();
+  document.getElementById('app_screen').style.display   = 'none';
+  document.getElementById('group_screen').style.display = 'flex';
+  document.getElementById('group_err').textContent = '';
+  document.getElementById('group_name_input').value = '';
+  document.getElementById('group_code_input').value = '';
+};
+
+// ── Auth state ──
+onAuthStateChanged(auth, async (user) => {
+  const loginScreen = document.getElementById('login_screen');
+  const groupScreen = document.getElementById('group_screen');
+  const appScreen   = document.getElementById('app_screen');
+  const userInfo    = document.getElementById('user_email');
+
+  if (user) {
+    currentUserId = user.uid;
+    if (loginScreen) loginScreen.style.display = 'none';
+    if (userInfo)    userInfo.textContent = user.email;
+
+    // Vérifier si l'user a déjà un groupe
+    try {
+      const userDoc = await getDoc(doc(db, 'users', user.uid));
+      if (userDoc.exists() && userDoc.data().groupId) {
+        enterGroup(userDoc.data().groupId, userDoc.data().groupName || userDoc.data().groupId);
+      } else {
+        if (groupScreen) groupScreen.style.display = 'flex';
+        if (appScreen)   appScreen.style.display   = 'none';
+      }
+    } catch(e) {
+      if (groupScreen) groupScreen.style.display = 'flex';
+    }
+  } else {
+    currentUserId  = null;
+    currentGroupId = null;
+    if (unsubscribeSnapshot) unsubscribeSnapshot();
+    if (loginScreen) loginScreen.style.display = 'flex';
+    if (groupScreen) groupScreen.style.display  = 'none';
+    if (appScreen)   appScreen.style.display    = 'none';
+  }
 });
 
-console.log('Firebase connecté ✅');
+// ── Mot de passe oublié ──
+window.doResetPassword = async function() {
+  const email = document.getElementById('login_email').value.trim();
+  const err   = document.getElementById('login_err');
+  err.style.color = 'var(--red)';
+  if (!email) { err.textContent = 'Entre ton email d\'abord.'; return; }
+  try {
+    await sendPasswordResetEmail(auth, email);
+    err.style.color = 'var(--green2)';
+    err.textContent = '✅ Email envoyé ! Vérifie ta boîte mail.';
+  } catch(e) {
+    err.textContent = e.code === 'auth/user-not-found' ? 'Aucun compte avec cet email.' : e.message;
+  }
+};
+
+// ── Login ──
+window.doLogin = async function() {
+  const email = document.getElementById('login_email').value.trim();
+  const pass  = document.getElementById('login_pass').value;
+  const err   = document.getElementById('login_err');
+  err.textContent = '';
+  if (!email || !pass) { err.textContent = 'Remplis tous les champs.'; return; }
+  try {
+    await signInWithEmailAndPassword(auth, email, pass);
+  } catch(e) {
+    err.textContent = e.code === 'auth/invalid-credential' ? 'Email ou mot de passe incorrect.' : e.message;
+  }
+};
+
+// ── Inscription ──
+window.doRegister = async function() {
+  const email = document.getElementById('login_email').value.trim();
+  const pass  = document.getElementById('login_pass').value;
+  const err   = document.getElementById('login_err');
+  err.textContent = '';
+  if (!email || !pass) { err.textContent = 'Remplis tous les champs.'; return; }
+  if (pass.length < 6) { err.textContent = 'Mot de passe minimum 6 caractères.'; return; }
+  try {
+    await createUserWithEmailAndPassword(auth, email, pass);
+  } catch(e) {
+    err.textContent = e.code === 'auth/email-already-in-use' ? 'Cet email est déjà utilisé.' : e.message;
+  }
+};
+
+// ── Déconnexion ──
+window.doLogout = async function() {
+  localStorage.removeItem('importcalc_clients');
+  await signOut(auth);
+};
+
+console.log('Firebase Auth + Firestore ✅');
 </script>
 
 <script>
@@ -1503,8 +1774,16 @@ function showPage(id) {
 
 function toggleTheme() {
   const isDark = document.body.classList.toggle('dark');
-  document.getElementById('theme-icon').textContent  = isDark ? '☀️' : '🌙';
-  document.getElementById('theme-label').textContent = isDark ? 'Light' : 'Dark';
+  const icon  = isDark ? '☀️' : '🌙';
+  const label = isDark ? 'Light' : 'Dark';
+  const ti = document.getElementById('theme-icon');
+  const tl = document.getElementById('theme-label');
+  const li = document.getElementById('login_theme_icon');
+  const ll = document.getElementById('login_theme_label');
+  if (ti) ti.textContent = icon;
+  if (tl) tl.textContent = label;
+  if (li) li.textContent = icon;
+  if (ll) ll.textContent = label;
   localStorage.setItem('importcalc_theme', isDark ? 'dark' : 'light');
 }
 
@@ -1512,8 +1791,15 @@ function toggleTheme() {
 (function() {
   if (localStorage.getItem('importcalc_theme') === 'dark') {
     document.body.classList.add('dark');
-    document.getElementById('theme-icon').textContent  = '☀️';
-    document.getElementById('theme-label').textContent = 'Light';
+    const icon = '☀️', label = 'Light';
+    const ti = document.getElementById('theme-icon');
+    const tl = document.getElementById('theme-label');
+    const li = document.getElementById('login_theme_icon');
+    const ll = document.getElementById('login_theme_label');
+    if (ti) ti.textContent = icon;
+    if (tl) tl.textContent = label;
+    if (li) li.textContent = icon;
+    if (ll) ll.textContent = label;
   }
 })();
 
