@@ -31,4 +31,7 @@ Just open the link — no installation needed.
 
 ## Update
 
-- Update v0.1 - 18/03/26
+## Updates
+
+- **v0.2** — 18/03/26 : Prix en ¥ CNY, cartes clients mobile, téléphone, slider marge, CSV corrigé
+- **v0.1** — 17/03/26 : Lancement initial
