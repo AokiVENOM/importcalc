@@ -32,7 +32,7 @@ Just open the link — no installation needed.
 
 ## Updates
 
+- **v0.4** — 20/03/26 : Projet séparé en dossiers (css/, js/), menu export 4 formats, bouton Tout effacer redesigné
+- **v0.3** — 20/03/26 : Taux CNY affiché dans le label + bouton Modifier manuel, scénarios de vente cliquables, export Excel XML couleurs
 - **v0.2** — 18/03/26 : Prix en ¥ CNY, cartes clients mobile, téléphone, slider marge, CSV corrigé
 - **v0.1** — 17/03/26 : Lancement initial
-- **v0.3** — 20/03/26 : Taux CNY affiché dans le label + bouton Modifier manuel, scénarios de vente cliquables, export Excel (.xls) avec couleurs (header bleu, fonds bleu, total rouge, séparateur entre clients)
-- **v0.4** — 20/03/26 : Menu export redesigné (CSV, Excel, XML couleurs, HTML), bouton Tout effacer redesigné
