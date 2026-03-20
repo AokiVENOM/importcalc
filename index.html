@@ -1087,9 +1087,23 @@ tbody td:nth-child(2){ color: var(--text2); }
       <div id="client_tbody" style="divide-y:1px solid var(--border);"></div>
     </div>
 
-    <div style="display:flex; gap:10px; margin-top:4px; flex-wrap:wrap;">
-      <button onclick="exportCSV()" class="cta-btn">Exporter Excel <span class="arr">↓</span></button>
-      <button onclick="if(confirm('Supprimer tous les clients ?')){localStorage.removeItem(KEY);renderTable();updateStats();}" class="cta-btn" style="color:var(--red);">Tout effacer <span class="arr" style="color:var(--red);">✕</span></button>
+    <div style="display:flex; gap:10px; margin-top:4px; flex-wrap:wrap; align-items:center;">
+      <!-- Export dropdown -->
+      <div style="position:relative;" id="export_wrap">
+        <button onclick="toggleExportMenu()" style="display:flex; align-items:center; gap:8px; background:var(--blue); color:#fff; border:none; border-radius:12px; padding:11px 18px; font-size:15px; font-weight:600; font-family:inherit; cursor:pointer;">
+          ↓ Exporter <span style="font-size:11px; opacity:0.8;">▼</span>
+        </button>
+        <div id="export_menu" style="display:none; position:absolute; bottom:calc(100% + 8px); left:0; background:var(--white); border:1px solid var(--border2); border-radius:14px; box-shadow:0 8px 24px rgba(0,0,0,0.14); overflow:hidden; min-width:210px; z-index:100;">
+          <div style="padding:8px 12px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; color:var(--text3); border-bottom:0.5px solid var(--border);">Choisir le format</div>
+          <button onclick="doExport('csv')"  style="width:100%; padding:11px 16px; text-align:left; background:none; border:none; border-bottom:0.5px solid var(--border); font-size:14px; color:var(--text); cursor:pointer; font-family:inherit; display:flex; align-items:center; gap:10px;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'"><span>📄</span><span><strong>CSV</strong><br><span style="font-size:12px; color:var(--text3);">Simple, compatible partout</span></span></button>
+          <button onclick="doExport('xlsx')" style="width:100%; padding:11px 16px; text-align:left; background:none; border:none; border-bottom:0.5px solid var(--border); font-size:14px; color:var(--text); cursor:pointer; font-family:inherit; display:flex; align-items:center; gap:10px;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'"><span>📊</span><span><strong>Excel .xlsx</strong><br><span style="font-size:12px; color:var(--text3);">Format Excel moderne</span></span></button>
+          <button onclick="doExport('xls')"  style="width:100%; padding:11px 16px; text-align:left; background:none; border:none; border-bottom:0.5px solid var(--border); font-size:14px; color:var(--blue); cursor:pointer; font-family:inherit; display:flex; align-items:center; gap:10px;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'"><span>🎨</span><span><strong>Excel couleurs</strong><br><span style="font-size:12px; color:var(--text3);">Header bleu, totaux rouges</span></span></button>
+          <button onclick="doExport('html')" style="width:100%; padding:11px 16px; text-align:left; background:none; border:none; font-size:14px; color:var(--text); cursor:pointer; font-family:inherit; display:flex; align-items:center; gap:10px;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'"><span>🌐</span><span><strong>HTML</strong><br><span style="font-size:12px; color:var(--text3);">Ouvrir dans le navigateur</span></span></button>
+        </div>
+      </div>
+      <button onclick="if(confirm('Supprimer tous les clients ?')){localStorage.removeItem(KEY);renderTable();updateStats();}" style="display:flex; align-items:center; gap:8px; background:rgba(255,59,48,0.08); color:var(--red); border:1.5px solid rgba(255,59,48,0.25); border-radius:12px; padding:11px 18px; font-size:15px; font-weight:600; font-family:inherit; cursor:pointer;" onmouseover="this.style.background='rgba(255,59,48,0.14)'" onmouseout="this.style.background='rgba(255,59,48,0.08)'">
+        🗑 Tout effacer
+      </button>
     </div>
 
   </div>
@@ -1983,6 +1997,132 @@ function updateStats() {
   }
 }
 
+function toggleExportMenu() {
+  const menu = document.getElementById('export_menu');
+  menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+  // Fermer si clic ailleurs
+  setTimeout(() => {
+    document.addEventListener('click', function handler(e) {
+      if (!document.getElementById('export_wrap').contains(e.target)) {
+        menu.style.display = 'none';
+        document.removeEventListener('click', handler);
+      }
+    });
+  }, 10);
+}
+
+function doExport(format) {
+  document.getElementById('export_menu').style.display = 'none';
+  if (format === 'csv')  exportToCSV();
+  if (format === 'xlsx') exportToXLSX();
+  if (format === 'xls')  exportCSV();
+  if (format === 'html') exportToHTML();
+}
+
+function exportToCSV() {
+  const clients = loadClients();
+  if (clients.length === 0) { alert('Aucun client à exporter.'); return; }
+  const lines = [];
+  lines.push(['Client','Téléphone','Fonds (Ar)','Date','Statut','Notes','Article','Couleur','Taille','Qté','Prix unit. ¥','Prix unit. Ar','Total ¥ CNY','Total Ar'].join(';'));
+  clients.forEach(c => {
+    const items = c.items || [];
+    const totalAr  = items.reduce((s,i) => s + i.qty*(i.prix_ar||i.prix||0), 0);
+    const totalCNY = items.reduce((s,i) => s + i.qty*(i.prix_cny||0), 0);
+    if (items.length === 0) {
+      lines.push([c.nom, c.tel||'', c.fond||0, c.date||'', statutStyles[c.statut]?.label||c.statut, c.notes||'','','','','','','','',''].join(';'));
+    } else {
+      items.forEach((i, idx) => {
+        const ar = i.prix_ar||i.prix||0, cny = i.prix_cny||0;
+        lines.push([idx===0?c.nom:'', idx===0?(c.tel||''):'', idx===0?(c.fond||0):'', idx===0?(c.date||''):'', idx===0?(statutStyles[c.statut]?.label||c.statut):'', idx===0?(c.notes||''):'', i.nom, i.couleur||'', i.taille||'', i.qty, cny||'', ar||'', cny?+(cny*i.qty).toFixed(2):'', i.qty*ar].join(';'));
+      });
+      lines.push(['','','','','','','TOTAL CLIENT','','','','','', totalCNY?+totalCNY.toFixed(2):'', totalAr].join(';'));
+      lines.push([]);
+    }
+  });
+  const blob = new Blob(['\uFEFF'+lines.join('\n')], {type:'text/csv;charset=utf-8;'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'importcalc_clients.csv'; a.click();
+}
+
+function exportToXLSX() {
+  const clients = loadClients();
+  if (clients.length === 0) { alert('Aucun client à exporter.'); return; }
+  if (typeof XLSX === 'undefined') { alert('SheetJS pas encore chargé, réessaie dans 2 secondes.'); return; }
+  const rows = [['Client','Téléphone','Fonds (Ar)','Date','Statut','Notes','Article','Couleur','Taille','Qté','Prix unit. ¥','Prix unit. Ar','Total ¥ CNY','Total Ar']];
+  clients.forEach(c => {
+    const items = c.items || [];
+    const totalAr  = items.reduce((s,i) => s + i.qty*(i.prix_ar||i.prix||0), 0);
+    const totalCNY = items.reduce((s,i) => s + i.qty*(i.prix_cny||0), 0);
+    if (items.length === 0) {
+      rows.push([c.nom, c.tel||'', c.fond||0, c.date||'', statutStyles[c.statut]?.label||c.statut, c.notes||'','','','','','','','','']);
+    } else {
+      items.forEach((i, idx) => {
+        const ar = i.prix_ar||i.prix||0, cny = i.prix_cny||0;
+        rows.push([idx===0?c.nom:'', idx===0?(c.tel||''):'', idx===0?(c.fond||0):'', idx===0?(c.date||''):'', idx===0?(statutStyles[c.statut]?.label||c.statut):'', idx===0?(c.notes||''):'', i.nom, i.couleur||'', i.taille||'', i.qty, cny||'', ar||'', cny?+(cny*i.qty).toFixed(2):'', i.qty*ar]);
+      });
+      rows.push(['','','','','','','TOTAL CLIENT','','','','','', totalCNY?+totalCNY.toFixed(2):0, totalAr]);
+      rows.push([]);
+    }
+  });
+  const wb = XLSX.utils.book_new();
+  const ws = XLSX.utils.aoa_to_sheet(rows);
+  ws['!cols'] = [{wch:14},{wch:14},{wch:12},{wch:12},{wch:12},{wch:18},{wch:22},{wch:10},{wch:8},{wch:6},{wch:12},{wch:12},{wch:14},{wch:14}];
+  XLSX.utils.book_append_sheet(wb, ws, 'Clients');
+  XLSX.writeFile(wb, 'importcalc_clients.xlsx');
+}
+
+function exportToHTML() {
+  const clients = loadClients();
+  if (clients.length === 0) { alert('Aucun client à exporter.'); return; }
+  let html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>ImportCalc — Clients</title>
+  <style>
+    body { font-family: -apple-system, sans-serif; padding: 30px; background: #f2f2f7; }
+    h1 { color: #1c1c1e; font-size: 22px; margin-bottom: 20px; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 20px; }
+    th { background: #1A56DB; color: #fff; padding: 10px 12px; text-align: left; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+    td { padding: 10px 12px; font-size: 14px; border-bottom: 0.5px solid #e5e5ea; }
+    .fond { color: #007AFF; font-weight: 700; }
+    .total-row td { background: #fff5f5; color: #FF3B30; font-weight: 700; border-top: 2px solid #FF3B30; }
+    .sep-row td { background: #e5e5ea; height: 4px; padding: 0; }
+    .client-name { font-weight: 700; font-size: 15px; }
+  </style></head><body>
+  <h1>📦 ImportCalc — Export Clients</h1><table>
+  <thead><tr><th>Client</th><th>Téléphone</th><th>Fonds (Ar)</th><th>Date</th><th>Statut</th><th>Notes</th><th>Article</th><th>Couleur</th><th>Taille</th><th>Qté</th><th>Prix ¥</th><th>Prix Ar</th><th>Total ¥</th><th>Total Ar</th></tr></thead><tbody>`;
+
+  clients.forEach(c => {
+    const items = c.items || [];
+    const totalAr  = items.reduce((s,i) => s + i.qty*(i.prix_ar||i.prix||0), 0);
+    const totalCNY = items.reduce((s,i) => s + i.qty*(i.prix_cny||0), 0);
+    if (items.length === 0) {
+      html += `<tr><td class="client-name">${c.nom}</td><td>${c.tel||''}</td><td class="fond">${(c.fond||0).toLocaleString('fr-FR')} Ar</td><td>${c.date||''}</td><td>${statutStyles[c.statut]?.label||c.statut}</td><td>${c.notes||''}</td><td colspan="8"></td></tr>`;
+    } else {
+      items.forEach((i, idx) => {
+        const ar = i.prix_ar||i.prix||0, cny = i.prix_cny||0;
+        const fondCell = idx===0 ? '<span class="fond">'+(c.fond||0).toLocaleString('fr-FR')+' Ar</span>' : '';
+        const nomCell  = idx===0 ? '<span class="client-name">'+c.nom+'</span>' : '';
+        html += '<tr>'
+          + '<td>'+nomCell+'</td>'
+          + '<td>'+(idx===0?(c.tel||''):'')+'</td>'
+          + '<td>'+fondCell+'</td>'
+          + '<td>'+(idx===0?(c.date||''):'')+'</td>'
+          + '<td>'+(idx===0?(statutStyles[c.statut]?.label||c.statut):'')+'</td>'
+          + '<td>'+(idx===0?(c.notes||''):'')+'</td>'
+          + '<td><strong>'+i.nom+'</strong></td><td>'+(i.couleur||'')+'</td><td>'+(i.taille||'')+'</td><td>'+i.qty+'</td>'
+          + '<td>'+(cny?cny.toFixed(2)+' ¥':'')+'</td>'
+          + '<td>'+(ar?ar.toLocaleString('fr-FR')+' Ar':'')+'</td>'
+          + '<td>'+(cny?(cny*i.qty).toFixed(2)+' ¥':'')+'</td>'
+          + '<td>'+(i.qty*ar).toLocaleString('fr-FR')+' Ar</td>'
+          + '</tr>';
+      });
+      html += `<tr class="total-row"><td colspan="6"></td><td colspan="6">TOTAL CLIENT</td><td>${totalCNY?totalCNY.toFixed(2)+' ¥':''}</td><td>${totalAr.toLocaleString('fr-FR')} Ar</td></tr>`;
+      html += `<tr class="sep-row"><td colspan="14"></td></tr>`;
+    }
+  });
+  html += `</tbody></table></body></html>`;
+  const blob = new Blob([html], {type:'text/html;charset=utf-8'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'importcalc_clients.html'; a.click();
+}
+
+
 function exportCSV() {
   const clients = loadClients();
   if (clients.length === 0) { alert('Aucun client à exporter.'); return; }
@@ -2070,7 +2210,8 @@ function exportCSV() {
         ${cell(totalAr, styleRedTotal,'Number')}
       </Row>\n`;
       // Ligne séparateur gris
-      rowsXml += `<Row ss:Height="6">${Array(14).fill('<Cell ss:StyleID="s6"><Data ss:Type="String"> </Data></Cell>').join('')}</Row>\n`;
+      const sepCell = '<Cell ss:StyleID="s6"><Data ss:Type="String"> </Data></Cell>';
+      rowsXml += '<Row ss:Height="6">' + Array(14).fill(sepCell).join('') + '</Row>\n';
     }
   });
 
