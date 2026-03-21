@@ -32,6 +32,7 @@ Just open the link — no installation needed.
 
 ## Updates
 
+- **v0.6** — 21/03/26 : Multi-groupes (liste des groupes par utilisateur), bug fix accès groupe, bouton Quitter lisible, fix présence heartbeat 30s
 - **v0.5** — 20/03/26 : Système login (email + mot de passe), groupes de travail partagés, compteur membres en ligne, salutation dynamique selon l'heure, mot de passe oublié
 - **v0.4** — 20/03/26 : Projet séparé en dossiers (css/, js/), menu export 4 formats, bouton Tout effacer redesigné
 - **v0.3** — 20/03/26 : Taux CNY affiché dans le label + bouton Modifier manuel, scénarios de vente cliquables, export Excel XML couleurs
