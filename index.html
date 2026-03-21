@@ -611,31 +611,35 @@ tbody td:nth-child(2){ color: var(--text2); }
 </div>
 
 <!-- ═══ ÉCRAN GROUPE ═══ -->
-<div id="group_screen" style="display:none; align-items:center; justify-content:center; min-height:100vh; background:var(--bg); padding:20px;">
-  <div style="background:var(--white); border-radius:24px; border:0.5px solid var(--border); padding:40px 36px; width:100%; max-width:420px; box-shadow:0 8px 40px rgba(0,0,0,0.10);">
-    <div style="text-align:center; margin-bottom:28px;">
-      <div style="font-size:36px; margin-bottom:10px;">👥</div>
-      <div style="font-size:22px; font-weight:700; color:var(--text);">Groupe de travail</div>
-      <div style="font-size:14px; color:var(--text3); margin-top:6px;">Crée ou rejoins un groupe pour partager les clients</div>
+<div id="group_screen" style="display:none; align-items:flex-start; justify-content:center; min-height:100vh; background:var(--bg); padding:20px;">
+  <div style="width:100%; max-width:440px; padding-top:20px;">
+
+    <!-- Header -->
+    <div style="text-align:center; margin-bottom:24px;">
+      <div style="font-size:32px; margin-bottom:8px;">👥</div>
+      <div style="font-size:22px; font-weight:700; color:var(--text);">Mes groupes</div>
+      <div style="font-size:13px; color:var(--text3); margin-top:4px;" id="group_user_email"></div>
     </div>
 
+    <!-- Liste des groupes -->
+    <div id="my_groups_list" style="margin-bottom:20px;"></div>
+
     <!-- Créer un groupe -->
-    <div style="background:rgba(0,122,255,0.06); border:1px solid rgba(0,122,255,0.2); border-radius:16px; padding:20px; margin-bottom:16px;">
-      <div style="font-size:14px; font-weight:700; color:var(--blue); margin-bottom:12px; text-transform:uppercase; letter-spacing:0.06em;">✨ Créer un groupe</div>
-      <input type="text" id="group_name_input" placeholder="ex: ImportToky2026" onkeydown="if(event.key==='Enter')createGroup()" style="width:100%; font-size:16px; padding:12px 14px; border-radius:10px; border:1px solid var(--border2); background:var(--bg); color:var(--text); font-family:inherit; margin-bottom:10px;" />
+    <div style="background:var(--white); border:1px solid var(--border); border-radius:16px; padding:18px; margin-bottom:12px;">
+      <div style="font-size:13px; font-weight:700; color:var(--blue); margin-bottom:10px; text-transform:uppercase; letter-spacing:0.06em;">✨ Créer un groupe</div>
+      <input type="text" id="group_name_input" placeholder="ex: ImportToky2026" onkeydown="if(event.key==='Enter')createGroup()" style="width:100%; font-size:15px; padding:11px 14px; border-radius:10px; border:1px solid var(--border2); background:var(--bg); color:var(--text); font-family:inherit; margin-bottom:10px;" />
       <button onclick="createGroup()" style="width:100%; background:var(--blue); color:#fff; border:none; border-radius:10px; padding:12px; font-size:15px; font-weight:600; font-family:inherit; cursor:pointer;">Créer et obtenir le code</button>
     </div>
 
     <!-- Rejoindre un groupe -->
-    <div style="background:rgba(52,199,89,0.06); border:1px solid rgba(52,199,89,0.2); border-radius:16px; padding:20px;">
-      <div style="font-size:14px; font-weight:700; color:var(--green2); margin-bottom:12px; text-transform:uppercase; letter-spacing:0.06em;">🔗 Rejoindre un groupe</div>
-      <input type="text" id="group_code_input" placeholder="ex: IMPORTTOKY123" onkeydown="if(event.key==='Enter')joinGroup()" style="width:100%; font-size:16px; padding:12px 14px; border-radius:10px; border:1px solid var(--border2); background:var(--bg); color:var(--text); font-family:inherit; margin-bottom:10px;" />
+    <div style="background:var(--white); border:1px solid var(--border); border-radius:16px; padding:18px; margin-bottom:12px;">
+      <div style="font-size:13px; font-weight:700; color:var(--green2); margin-bottom:10px; text-transform:uppercase; letter-spacing:0.06em;">🔗 Rejoindre un groupe</div>
+      <input type="text" id="group_code_input" placeholder="ex: IMPORTTOKY2026" onkeydown="if(event.key==='Enter')joinGroup()" style="width:100%; font-size:15px; padding:11px 14px; border-radius:10px; border:1px solid var(--border2); background:var(--bg); color:var(--text); font-family:inherit; margin-bottom:10px;" />
       <button onclick="joinGroup()" style="width:100%; background:var(--green2); color:#fff; border:none; border-radius:10px; padding:12px; font-size:15px; font-weight:600; font-family:inherit; cursor:pointer;">Rejoindre</button>
     </div>
 
-    <div id="group_err" style="color:var(--red); font-size:14px; min-height:20px; margin-top:12px; text-align:center;"></div>
-
-    <button onclick="doLogout()" style="width:100%; background:transparent; color:var(--text3); border:none; padding:10px; font-size:14px; font-family:inherit; cursor:pointer; margin-top:8px; text-decoration:underline;">Se déconnecter</button>
+    <div id="group_err" style="color:var(--red); font-size:14px; min-height:20px; text-align:center; margin-bottom:8px;"></div>
+    <button onclick="doLogout()" style="width:100%; background:transparent; color:var(--text3); border:none; padding:10px; font-size:14px; font-family:inherit; cursor:pointer; text-decoration:underline;">Se déconnecter</button>
   </div>
 </div>
 
@@ -658,8 +662,8 @@ tbody td:nth-child(2){ color: var(--text2); }
   </div>
   <div style="display:flex; align-items:center; gap:4px; flex-shrink:0;">
     <span id="user_email" class="email-desktop" style="font-size:11px; color:var(--text3); white-space:nowrap; max-width:150px; overflow:hidden; text-overflow:ellipsis; display:none;"></span>
-    <button onclick="leaveGroup()" title="Changer de groupe" style="font-size:12px; font-weight:600; padding:5px 10px; border-radius:20px; border:1px solid rgba(255,149,0,0.35); background:transparent; color:var(--orange); cursor:pointer; font-family:inherit; white-space:nowrap;"><span class="btn-text-desktop">⇄ Groupe</span><span class="btn-icon-mobile">⇄</span></button>
-    <button onclick="doLogout()" title="Déconnexion" style="font-size:12px; font-weight:600; padding:5px 10px; border-radius:20px; border:1px solid rgba(255,59,48,0.35); background:transparent; color:var(--red); cursor:pointer; font-family:inherit; white-space:nowrap;"><span class="btn-text-desktop">⏻ Déco</span><span class="btn-icon-mobile">⏻</span></button>
+    <button onclick="leaveGroup()" title="Changer de groupe" style="font-size:11px; font-weight:600; padding:5px 10px; border-radius:20px; border:1px solid rgba(255,149,0,0.35); background:transparent; color:var(--orange); cursor:pointer; font-family:inherit; white-space:nowrap;"><span class="btn-text-desktop">⇄ Groupe</span><span class="btn-icon-mobile">⇄</span></button>
+    <button onclick="doLogout()" title="Déconnexion" style="font-size:11px; font-weight:700; padding:5px 10px; border-radius:20px; border:1.5px solid rgba(255,59,48,0.5); background:rgba(255,59,48,0.08); color:var(--red); cursor:pointer; font-family:inherit; white-space:nowrap;">🚪 Quitter</button>
   </div>
 </div>
 
@@ -1582,16 +1586,21 @@ window.createGroup = async function() {
   if (!name) { err.style.color = 'var(--red)'; err.textContent = 'Entre un nom de groupe.'; return; }
   const code = name.toUpperCase().replace(/\s+/g, '');
   try {
+    // Vérifier si le groupe existe déjà
+    const existing = await getDoc(doc(db, 'groups', code));
+    if (existing.exists()) { err.style.color = 'var(--red)'; err.textContent = 'Ce nom existe déjà, choisis-en un autre.'; return; }
     await setDoc(doc(db, 'groups', code), {
       name, code,
       createdBy: currentUserId,
       members: [currentUserId],
       createdAt: new Date().toISOString()
     });
-    await setDoc(doc(db, 'users', currentUserId), { groupId: code, groupName: name }, { merge: true });
+    await setDoc(doc(db, 'users', currentUserId), {
+      groups: arrayUnion({ groupId: code, groupName: name })
+    }, { merge: true });
     err.style.color = 'var(--green2)';
     err.textContent = '✅ Groupe créé ! Code : ' + code;
-    setTimeout(() => enterGroup(code, name), 1500);
+    setTimeout(() => { loadUserGroups(); enterGroup(code, name); }, 1200);
   } catch(e) { err.style.color = 'var(--red)'; err.textContent = 'Erreur : ' + e.message; }
 };
 
@@ -1605,8 +1614,12 @@ window.joinGroup = async function() {
     if (!groupDoc.exists()) { err.style.color = 'var(--red)'; err.textContent = 'Groupe introuvable. Vérifie le code.'; return; }
     const groupData = groupDoc.data();
     await updateDoc(doc(db, 'groups', code), { members: arrayUnion(currentUserId) });
-    await setDoc(doc(db, 'users', currentUserId), { groupId: code, groupName: groupData.name }, { merge: true });
-    enterGroup(code, groupData.name);
+    await setDoc(doc(db, 'users', currentUserId), {
+      groups: arrayUnion({ groupId: code, groupName: groupData.name })
+    }, { merge: true });
+    err.style.color = 'var(--green2)';
+    err.textContent = '✅ Rejoint !';
+    setTimeout(() => { loadUserGroups(); enterGroup(code, groupData.name); }, 1000);
   } catch(e) { err.style.color = 'var(--red)'; err.textContent = 'Erreur : ' + e.message; }
 };
 
@@ -1620,7 +1633,7 @@ function getGreeting() {
   return 'Bonne nuit 🌙';
 }
 
-function enterGroup(groupId, groupName) {
+window.enterGroup = function enterGroup(groupId, groupName) {
   currentGroupId = groupId;
   const groupScreen = document.getElementById('group_screen');
   const appScreen   = document.getElementById('app_screen');
@@ -1636,22 +1649,38 @@ function enterGroup(groupId, groupName) {
     if (tag) tag.innerHTML = greeting + ', <span id="hero_user_email">' + auth.currentUser.email + '</span> 👋';
   }
 
-  // ── Présence : marquer en ligne ──
+  // ── Présence : marquer en ligne + heartbeat toutes les 30s ──
   const presenceRef = doc(db, 'groups', groupId, 'presence', currentUserId);
-  setDoc(presenceRef, { uid: currentUserId, email: auth.currentUser?.email, online: true, lastSeen: new Date().toISOString() });
+  const updatePresence = () => setDoc(presenceRef, {
+    uid: currentUserId,
+    email: auth.currentUser?.email,
+    online: true,
+    lastSeen: new Date().toISOString()
+  }, { merge: true });
 
-  // ── Écouter membres en ligne ──
+  updatePresence();
+  const heartbeat = setInterval(updatePresence, 30000); // ping toutes les 30s
+
+  // ── Écouter membres en ligne (lastSeen < 2 minutes = actif) ──
   onSnapshot(collection(db, 'groups', groupId, 'presence'), (snap) => {
-    const online = snap.docs.filter(d => d.data().online).length;
-    const badge  = document.getElementById('nav_members_count');
+    const now = Date.now();
+    const online = snap.docs.filter(d => {
+      const data = d.data();
+      if (!data.online) return false;
+      // Vérifier que lastSeen est récent (< 2 minutes)
+      const lastSeen = new Date(data.lastSeen).getTime();
+      return (now - lastSeen) < 2 * 60 * 1000;
+    }).length;
+    const badge = document.getElementById('nav_members_count');
     if (badge) {
-      badge.style.display = 'inline';
+      badge.style.display = online > 0 ? 'inline' : 'none';
       badge.textContent   = '● ' + online;
     }
   });
 
   // ── Marquer offline à la fermeture ──
   window.addEventListener('beforeunload', () => {
+    clearInterval(heartbeat);
     setDoc(presenceRef, { online: false, lastSeen: new Date().toISOString() }, { merge: true });
   });
 
@@ -1660,11 +1689,9 @@ function enterGroup(groupId, groupName) {
 
 // ── Quitter le groupe ──
 window.leaveGroup = async function() {
-  if (!confirm('Quitter le groupe ?')) return;
   if (currentGroupId && currentUserId) {
     await setDoc(doc(db, 'groups', currentGroupId, 'presence', currentUserId), { online: false, lastSeen: new Date().toISOString() }, { merge: true });
   }
-  await setDoc(doc(db, 'users', currentUserId), { groupId: null, groupName: null }, { merge: true });
   currentGroupId = null;
   localStorage.removeItem('importcalc_clients');
   if (unsubscribeSnapshot) unsubscribeSnapshot();
@@ -1673,6 +1700,37 @@ window.leaveGroup = async function() {
   document.getElementById('group_err').textContent = '';
   document.getElementById('group_name_input').value = '';
   document.getElementById('group_code_input').value = '';
+  // Afficher l'email dans le header groupe
+  const emailEl = document.getElementById('group_user_email');
+  if (emailEl && auth.currentUser) emailEl.textContent = auth.currentUser.email;
+  await loadUserGroups();
+};
+
+// ── Charger les groupes de l'utilisateur ──
+window.loadUserGroups = async function() {
+  if (!currentUserId) return;
+  try {
+    const userDoc = await getDoc(doc(db, 'users', currentUserId));
+    const userData = userDoc.exists() ? userDoc.data() : {};
+    const groups = userData.groups || [];
+    const container = document.getElementById('my_groups_list');
+    if (!container) return;
+
+    if (groups.length === 0) {
+      container.innerHTML = '<div style="text-align:center; color:var(--text3); font-size:14px; padding:12px;">Aucun groupe pour l\'instant</div>';
+      return;
+    }
+
+    container.innerHTML = groups.map((g, idx) => `
+      <div data-gid="${g.groupId}" data-gname="${(g.groupName||'').replace(/"/g,'')}" onclick="window.enterGroup(this.dataset.gid, this.dataset.gname)" style="display:flex; justify-content:space-between; align-items:center; padding:14px 16px; background:var(--white); border-radius:14px; margin-bottom:10px; cursor:pointer; border:1px solid var(--border2); transition:all 0.15s; box-shadow:0 1px 4px rgba(0,0,0,0.06);" onmouseover="this.style.borderColor='var(--blue)'; this.style.background='rgba(0,122,255,0.04)'" onmouseout="this.style.borderColor='var(--border2)'; this.style.background='var(--white)'">
+        <div>
+          <div style="font-size:15px; font-weight:700; color:var(--text);">👥 ${g.groupName || g.groupId}</div>
+          <div style="font-size:12px; color:var(--text3); margin-top:3px;">Code : <strong>${g.groupId}</strong></div>
+        </div>
+        <span style="font-size:22px; color:var(--blue);">→</span>
+      </div>
+    `).join('');
+  } catch(e) { console.error(e); }
 };
 
 // ── Auth state ──
@@ -1687,18 +1745,12 @@ onAuthStateChanged(auth, async (user) => {
     if (loginScreen) loginScreen.style.display = 'none';
     if (userInfo)    userInfo.textContent = user.email;
 
-    // Vérifier si l'user a déjà un groupe
-    try {
-      const userDoc = await getDoc(doc(db, 'users', user.uid));
-      if (userDoc.exists() && userDoc.data().groupId) {
-        enterGroup(userDoc.data().groupId, userDoc.data().groupName || userDoc.data().groupId);
-      } else {
-        if (groupScreen) groupScreen.style.display = 'flex';
-        if (appScreen)   appScreen.style.display   = 'none';
-      }
-    } catch(e) {
-      if (groupScreen) groupScreen.style.display = 'flex';
-    }
+    // Afficher l'écran groupe avec la liste des groupes
+    if (groupScreen) groupScreen.style.display = 'flex';
+    if (appScreen)   appScreen.style.display   = 'none';
+    const emailEl = document.getElementById('group_user_email');
+    if (emailEl) emailEl.textContent = user.email;
+    await loadUserGroups();
   } else {
     currentUserId  = null;
     currentGroupId = null;
